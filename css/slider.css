@@ -1,0 +1,319 @@
+.content-container {
+            /*height: 600px;*/ /* master height here */
+            position: relative;
+        }
+
+
+        /* NAV ARROWS */
+
+        .navarrow-container {
+            position: absolute;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .navarrow {
+            pointer-events: auto;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            align-items: center;
+           
+        }
+
+        #navarrowprevious {
+        	width: 30%;
+        }
+
+        #navarrownext {
+            justify-content: flex-end;
+            width: 50%;
+        }
+
+        .navarrowsvg {
+            stroke-width: 6px;
+            stroke: #000;
+            fill: none;
+            width: 28px;
+            padding: 8px;
+            stroke-opacity: 0.5;
+            transition: 0.2s;
+        }
+
+        .darkmode .navarrowsvg {
+        	stroke: #fff;
+        }
+
+        .navarrow:hover .navarrowsvg {
+            stroke-opacity: 0.75;
+        }
+
+        .disabledbutton {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .clicked .navarrowsvg {
+            stroke-width: 8px;
+        }
+
+
+        @media (min-width: 600px) {
+
+            #navarrowprevious, #navarrownext  {
+                width: 150px;
+            }
+
+            .navarrowsvg {
+                stroke-width: 8px;
+                width: 48px;
+                padding: 12px;
+            }
+
+            .clicked .navarrowsvg {
+                stroke-width: 11px;
+            }
+        }
+
+        /* PROGRESS BAR */
+
+        .progressbar {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto 12px;
+            max-width: 70%;
+        }
+
+        .progressmarker {
+            width: 100%;
+            height: 4px;
+            background-color: #000;
+            opacity: 0.2;
+            margin: 0 4px;
+            transition: opacity 0.1s;
+            border-radius: 2px;
+        }
+
+        .activeprogressmarker {
+            opacity: 0.6;
+        }
+
+        @media (min-width: 518px) {
+            .progressbar {
+                 margin-bottom: 16px;
+            }
+            .progressmarker {
+                margin: 0 4px;
+                height: 4px;
+                max-width: 50px;
+            }
+        }
+
+        /* BACKGROUND CONTAINER*/
+
+        .background-container {
+           /* height: 100%;
+            position: absolute;*/
+            /* CHANGE THE CODE ABOVE FOR IMAGE SIZING */
+            width: 100%;
+            z-index: 98;
+        }
+
+        .background-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+
+        /* SLIDE CONTAINER*/
+
+        .slide-container {
+            /*height: 100%;*/
+            height: 130px;
+            width: 100%;
+            /*position: absolute;*/
+            z-index: 99;
+            top: 0;
+            left: 0;
+         }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+            padding: 0 35px;
+         }
+
+        .activeslide {
+            opacity: 1;
+            pointer-events: auto;
+         }
+
+        #slide1 {
+            background-color: none;
+         }
+
+        #slide2 {
+            background-color: none;
+         }
+
+        #slide3 {
+            background-color: none;
+         }
+
+        #slide4 {
+            background-color: none;
+         }
+
+        #slide5 {
+            background-color: none;
+         }
+
+
+         /* SLIDE CAPTIONS */
+
+         .slidecaption {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.3s;
+            transition-delay: 0.3s;
+         }
+
+         .activeslide .slidecaption {
+            opacity: 1;
+         }
+
+         .slidecaption p {
+            margin: 0;
+            padding: 8px;
+            font-size: 13px;
+            line-height: 1.4em;
+            color: #fff;
+            background-color: rgba(0,0,0,0.6);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+         }
+
+         .darkmode .slidecaption p {
+         	background-color: rgba(255,255,255,0.2);
+         }
+
+         .slidecaption-bottom, .slidecaption-bottomleft, .slidecaption-bottomright  {
+            bottom: 8px;
+            margin: 0 8px;
+         }
+
+         .slidecaption-top, .slidecaption-topleft, .slidecaption-topright {
+            top: 8px;
+            margin: 0 8px;
+         }
+
+
+        #arrowsForSlider {
+            display: flex;
+        }
+
+         @media (min-width: 600px) {
+
+
+
+            #arrowsForSlider {
+                display: none;
+            }
+
+            .slide-container {
+                height: auto;
+            }
+
+            .slide {
+                position: relative;
+                opacity: 1;
+                padding: 0;
+            }
+
+            .progressbar {
+                display: none;
+            }
+
+            .slidecaption p {
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            .slidecaption-bottom {
+                bottom: 16px;
+                margin: 0;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 400px;
+            }
+
+            .slidecaption-bottomleft {
+                left: 16px;
+                bottom: 16px;
+                max-width: 400px;
+                margin: 0;
+             }
+
+            .slidecaption-bottomright {
+                right: 16px;
+                bottom: 16px;
+                max-width: 400px;
+                margin: 0;
+             }
+
+            .slidecaption-top {
+                top: 16px;
+                margin: 0;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 400px;
+            }
+
+            .slidecaption-topleft {
+                left: 16px;
+                top: 16px;
+                max-width: 400px;
+                margin: 0;
+             }
+
+            .slidecaption-topright {
+                top: 16px;
+                right: 16px;
+                max-width: 400px;
+                margin: 0;
+                
+             }
+        }
+
+
+        #mobileplaceholder {
+            display: block;
+        }
+
+        #desktopplaceholder {
+            display: none;
+        }
+
+        @media (min-width: 518px) {
+             #mobileplaceholder {
+                display: none;
+            }
+
+            #desktopplaceholder {
+                display: block
+            }
+
+        }

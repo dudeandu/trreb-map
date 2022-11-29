@@ -1,0 +1,3072 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title></title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> 
+
+    <script src="https://misc.thestar.com/interactivegraphic/libraries/d3v4.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+
+<!-- dropdown -->
+    <link href='css/select2.min.css' rel='stylesheet' type='text/css'>
+
+<!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+
+    <link rel="stylesheet" type="text/css" href="https://misc.thestar.com/interactivegraphic/libraries/interactive-graphic-cta/cta-style.css">
+
+
+
+    <style>
+        @font-face {
+          font-family: TorstarDeckCondensed;
+          src: url(https://misc.thestar.com/fonts/TorstarDeckCondensed-Semibold.otf);
+        }
+
+
+        body {
+            margin: 0;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            background-color: #f8f8f8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        .clearfix:after {
+            visibility: hidden;
+            display: none;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+            }
+            
+        .clearfix {
+            display: block;
+            }
+
+        .graphic-wrapper {
+          margin: 0 auto;
+          max-width: 1032px; }
+
+        .graphic-top {
+          padding: 8px 0;
+          margin: 0 auto;
+          max-width: 690px;  }
+          @media (min-width: 526px) {
+            .graphic-top {
+              padding: 12px 0 0; } }
+          @media (min-width: 592px) {
+            .graphic-top {
+              padding: 16px 0 0; } }
+
+        h2.graphic-top__graphic-hed {
+          margin: 0;
+          font-size: 26px;
+          line-height: 1.2em;
+          padding-bottom: 4px;
+          font-family: "TorstarDeckCondensed", Georgia, "Times New Roman", Times, serif;
+          color: #000;
+          text-rendering: optimizeLegibility;
+          font-weight: normal;
+          font-style: normal;
+          -moz-osx-font-smoothing: grayscale;
+        }
+          @media (min-width: 526px) {
+            h2.graphic-top__graphic-hed {
+              font-size: 28px; } }
+          @media (min-width: 592px) {
+            h2.graphic-top__graphic-hed {
+              font-size: 30px; } }
+
+        h3.graphic-top__graphic-dek {
+          font-size: 14px;
+          line-height: 1.35em;
+          font-weight: 400;
+          margin: 0;
+          font-family: 'Inter', 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+          color: #444; }
+          @media (min-width: 526px) {
+            h3.graphic-top__graphic-dek {
+              font-size: 15px; } }
+          @media (min-width: 592px) {
+            h3.graphic-top__graphic-dek {
+              font-size: 16px; } }
+
+        .graphic-bottom {
+          max-width: 690px; 
+          margin: 12px auto 0;
+          padding: 4px 0 24px;
+          border-top: 1px solid #b0b0b0; }
+          .graphic-bottom:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0; }
+          @media (min-width: 526px) {
+            .graphic-bottom {
+              padding-top: 6px; } }
+          @media (min-width: 592px) {
+            .graphic-bottom {
+              padding-top: 8px; } }
+
+        p.graphic-bottom__graphic-source {
+          margin: 0;
+          padding-bottom: 4px;
+          font-size: 11px;
+          line-height: 1.35em;
+          font-family: 'Inter', 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+          color: #707070;
+          text-rendering: optimizeLegibility;
+          text-transform: uppercase; }
+          @media (min-width: 526px) {
+            p.graphic-bottom__graphic-source {
+              max-width: 65%;
+              vertical-align: top;
+              float: left;
+              font-size: 12px; } }
+        p.graphic-bottom__graphic-byline {
+          margin: 0;
+          padding-bottom: 4px;
+          font-size: 11px;
+          line-height: 1.35em;
+          font-family: 'Inter', 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+          color: #707070;
+          text-transform: uppercase;
+          text-rendering: optimizeLegibility; }
+          @media (min-width: 526px) {
+            p.graphic-bottom__graphic-byline {
+              text-align: right;
+              max-width: 30%;
+              vertical-align: top;
+              float: right;
+              font-size: 12px; } }
+        p.graphic-bottom__notetext {
+          margin: 0;
+          text-align: left;
+          font-size: 14px;
+          line-height: 1.35em;
+          padding-bottom: 8px;
+          color: #444;
+          font-family: 'Inter', 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+          webkit-font-smoothing: subpixel-antialiased;
+          -moz-osx-font-smoothing: auto;
+          text-rendering: optimizeLegibility; }
+          @media (min-width: 526px) {
+            p.graphic-bottom__notetext {
+              font-size: 14px; } }
+          @media (min-width: 592px) {
+            p.graphic-bottom__notetext {
+              font-size: 15px; } }
+
+        .graphic-legend {
+            padding: 12px 0 0;
+        }
+        .graphic-legend-container {
+           width: auto;
+           margin: 0 16px 4px 0;
+           display: inline-block;
+        }
+        .graphic-legend-dot {
+            float: left;
+            height: 12px;
+            width: 12px;
+            background-color: #444;
+            border-radius: 16px;
+            margin-top: 1px;
+        }
+        .graphic-legend-text {
+            margin: 0 0 0 16px;
+            font-family: 'Inter', 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+            color: #444;
+            font-size: 12px;
+            line-height: 1.2em;
+        }
+        @media (min-width: 526px) {
+            .graphic-legend-text {
+              font-size: 13px; }
+              .graphic-legend-dot {
+                margin-top: 2px;
+              } }
+          @media (min-width: 592px) {
+            .graphic-legend-text {
+              font-size: 14px; }
+              .graphic-legend-dot {
+                margin-top: 3px;
+              } }
+
+          .graphic {
+            width: 100%;
+          }
+
+        .cta-wrapper {
+          width:  100%;
+          max-width: 690px;
+          margin: 0 auto 8px;
+        }
+
+        .interactive-graphic-cta{
+          white-space: normal;
+        }
+
+
+        #map {
+            position: relative;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 600px;
+        }
+
+        @media (max-width: 526px) {
+            #map {
+              height: 450px;
+            }
+        }
+
+        #locations {
+            position: absolute;
+        }
+
+        .map-overlay {
+            background-color: #fff;
+            border-radius: 3px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
+            font-family: 'Inter', 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+            padding: 10px;
+            z-index: 999999;
+            pointer-events: none;
+            display: none;
+            max-width: 150px;
+            margin-bottom: 11px;
+            position: absolute;
+        }
+
+        .highlight {
+            font-weight: bold;
+        }
+
+
+        .dates{
+            text-transform: uppercase;
+        }
+
+        /* ---------- Filter burger start ------------ */
+
+        .filterBox{
+          width: 100%;
+          /*border: 1px solid red;*/
+          text-align: center;
+          margin-bottom: 20px;
+        }
+
+        #menuLabel{
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+          text-align: center;
+          text-transform: uppercase;
+          font-size: 1.3em;
+
+          cursor: pointer;
+          background-color: #f8f8f8;
+          padding: 7px 6px 6px;
+        }
+
+        #burgerMenu, #menuLabel{
+          display: none;
+        }
+
+        input#burgerMenu {
+            display: none;
+        }
+
+        .fa-times{
+          display: none;
+        }
+
+        input#burgerMenu:checked +label .fa-bars {
+            display: none;
+        }
+
+        input#burgerMenu:checked +label .fa-times {
+            display: inline;
+        }
+
+
+
+        .filterMenu{
+          margin-top: 20px;
+          /*position: absolute;*/
+          /*top: 0;*/
+          z-index: 10;
+
+          /*writing-mode: vertical-rl;*/
+          text-orientation: upright;
+        }
+
+        @media all and (max-width: 422px) {
+          /*.filterBox {
+            top:0;
+            padding: 2px;
+            background-color: #f8f8f8;
+            max-height: 0;
+            overflow: hidden;
+          }*/
+
+          input#burgerMenu:checked ~ .filterBox {
+            max-height: 100%;
+          }
+
+          /*#burgerMenu, #menuLabel{
+            display: block;
+          }*/
+
+          .filterMenu {
+            padding: 10px 0 5px;
+            position: -webkit-sticky; /* Safari */
+            top:0px;
+            position: sticky;
+            visibility: visible;
+          }
+
+          .policyBox {}
+
+          .policyBox{
+            /*margin-top: 400px;*/
+          }
+
+        }
+
+        .filterMenu .interactive-graphic-cta {
+          white-space: normal;
+          text-align: left;
+        }
+
+        /* ---------- Filter burger end ------------ */
+
+
+        /* ---------- Buttons start ------------ */
+        .button-group-wrapper {
+          padding: 8px 0;
+          margin: 0 auto;
+          max-width: 690px;  
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+        }
+        #button-group-wrapper2 {
+          padding: 0px 0 8px;
+        }
+
+        .button-group {
+            display: flex;
+            /*margin-bottom: 10px;*/
+            width: 100%;
+        }
+
+        .buttoninstructions {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+          color: #707070;
+          text-align: left;
+          padding: 0;
+          margin: 0 auto;
+          max-width: 690px;
+          font-size: 12px;
+          text-transform: uppercase;
+        }
+
+        @media (max-width: 526px) {
+            .buttoninstructions {
+              font-size: 11px;
+            }
+        }
+
+        .button-group div {
+            flex: 1;
+        }
+
+        .button-group div:nth-child(even) {
+            /*padding: 0 6px;*/
+        }
+
+        .button-group div:first-child button {
+            border-radius: 4px 0px 0px 4px;
+            border-right: 1px transparent solid;
+            transform: translateX(1px);
+        }
+
+        .button-group div:last-child button {
+            border-radius: 0px 4px 4px 0px;
+            border-left: 1px transparent solid;
+            transform: translateX(-1px);
+        }
+
+        .button-group button {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+            background: #00000005;
+            padding: 4px 12px;
+            flex-basis: auto;
+            color: #000;
+            margin: 0;
+            cursor: pointer;
+            transition: 0.2s all;
+            font-weight: bold;
+            min-height: 37px;
+        }
+
+        .button-group button:hover {
+            background: #0000000d;
+        }
+
+        .showing-cases .button-group button:focus {
+            outline: none;
+            box-shadow: 0 0 3px #7d104a73;
+            box-shadow: 0 0px 0px 3px #7d104a30;
+        }
+
+        .showing-deaths .button-group button:focus {
+            outline: none;
+            box-shadow: 0 0px 0px 3px #2f8b8836;
+        }
+
+
+        #timeSpanbutton-container {
+            margin-left: 10px;
+            border-left: 2px solid #e4e4e4;
+            padding-left: 10px;
+        }
+
+        #button-group-wrapper1 {
+            display: flex;
+            margin: 0 auto 12px;
+        }
+
+        @media (max-width: 526px) {
+          button { 
+            font-size: 12px;
+          }
+        }
+
+        @media (max-width: 400px) {
+            #timeSpanbutton-container {
+                margin-left: 0;
+                border-left: none;
+                padding-left: 0;
+            }
+
+            .button-group-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            button {
+              font-size: 11px;
+            }
+        }
+
+        button.active {
+            color: #c83933 !important;
+            border: 1px solid #c83933 !important;
+            background: #c8393314 !important;
+            z-index: 1;
+        }
+
+
+
+        /* ---------- Button end ------------ */
+
+
+        /* ---------- Pills start ------------ */
+
+        #pills-container {
+          display: flex;
+          justify-content: space-between;
+          margin-top:  4px;
+        }
+
+        #info #pills-container {
+          /*display: flex;*/
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+
+        @media (max-width: 400px) {
+            #pills-container {
+              flex-wrap: wrap;
+            }
+        }
+
+        button.pill {
+            height: 32px;
+            max-height: 40px;
+            flex-basis: 49%;
+            position: relative;
+            font-size: 11px;
+            display: inline-block;
+            border: 1px solid #ddd;
+            background: transparent;
+            padding: 3px 9px;
+            border-radius: 500px;
+            color: #000;
+            margin: 0 4px 4px 0;
+            cursor: pointer;
+            transition: 0.2s background, 0.2s color, 0.2s border-color;
+            font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+        }
+
+        #info button.pill {
+          /*display: flex;*/
+            flex-basis: 30%;
+        }
+
+        @media (max-width: 526px) {
+          button.pill { 
+            font-size: 11px;
+          }
+        }
+
+        @media (max-width: 400px) {
+          button.pill {
+             margin: 0 0 4px 0;
+          }
+
+          #info button.pill {
+            margin: 0 4px 4px 0;
+          }
+
+          #button4 {
+              flex-basis: 100%;
+          }          
+        }
+
+
+
+
+        .filterBox button.pill:first-child {
+            margin-left: 0px;
+        }
+
+        .filterBox button.pill:last-child {
+            margin-right: 0px;
+        }
+
+        .filterBox button.pill:hover {
+            background: #0000000d;
+        }
+
+        .filterBox button.pill:focus {
+            outline: none;
+        }
+
+        #pills-container::after {
+            color: #a0a0a0;
+            font-family: sans-serif;
+            font-size: 0.7em;
+            margin-bottom: 6px;
+            display: block;
+            margin-left: 5px;
+        }
+
+
+
+        /* ---------- Pills end ------------ */
+
+
+
+        /* -------- dropdown -----------*/
+
+
+
+        .dropdown-container select {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+            background: #00000005;
+            padding: 4px 12px;
+            flex-basis: auto;
+            color: #000;
+            margin: 0 !important;
+            cursor: pointer;
+            transition: 0.2s all;
+            /*font-weight: bold;*/
+            min-height: 37px;
+          }
+
+          .dropdown-container {
+            padding: 8px 0;
+            margin: 0 auto;
+            max-width: 690px;  
+            display: flex;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+          }
+
+          .select2.select2-container.select2-container--default, li{
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+          }
+
+          #selUser {
+            width: 100%;
+          }
+
+        /* -------- dropdown -----------*/
+
+
+        /* ---------- Legend start ------------ */
+
+
+        .legend-bottom {
+          text-align: center;
+           margin: 0 0 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+        }
+
+        .graphic-legend {
+          width: 470px;
+          
+          vertical-align: top;
+          /*margin-bottom: 15px;*/
+          display: none;
+
+          text-transform: uppercase;
+        }
+
+        .active-legend {
+          display: inline-block;
+        }
+
+
+        .legendheading {
+          text-align: center;
+          margin: 0 auto;
+          padding-bottom: 5px;
+          color: #444;
+          font-size: 14px;
+          line-height: 1.1em;
+          max-width: 470px;
+        }
+
+        .legendbox-container-1 {
+          width: 470px;
+          margin: 0 auto;
+        }
+
+        .legendbox-container-2 {
+          width: 380px;
+          margin: 0 auto;
+        }
+
+        .legendbox {
+          height: 12px;
+          width: 46px;
+          float: left;
+        }
+        /*
+        #legendbox1 {
+          background-color: #0077BB;
+          opacity: 0.3;
+          margin-right: 10px;
+        }*/
+
+        #legendbox22 {
+          background-color: #0077BB;
+          /*opacity: 0.3;*/
+          margin-right: 10px;
+          margin-left: 60px;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          margin-top: 6px;
+        }
+
+        #legendbox10 {
+          /*opacity: 0.3;*/
+          /*background-color: lightgrey;*/
+          background-color: #111;
+        }
+
+        #legendbox9 {
+          /*opacity: 0.3;*/
+          background-color: #ffeda0;
+          margin-left: 10px;
+        }
+
+        #legendbox8 {
+          /*opacity: 0.3;*/
+          background-color: #fad58f;
+        }
+
+        #legendbox7 {
+          /*opacity: 0.3;*/
+          background-color: #f4bc7f;
+        }
+
+        #legendbox6 {
+          /*opacity: 0.3;*/
+          background-color: #eda46f;
+        }
+
+        #legendbox5 {
+          /*opacity: 0.3;*/
+          background-color: #e58b5f;
+        }
+
+        #legendbox4 {
+          /*opacity: 0.3;*/
+          background-color: #dc7250;
+        }
+
+        #legendbox3 {
+          /*opacity: 0.3;*/
+          background-color: #d35741;
+        }
+
+        #legendbox2 {
+          /*opacity: 0.3;*/
+          background-color: #c83933;
+        }
+
+        #legendbox1 {
+          /*opacity: 0.3;*/
+          background-color: #bd0026;
+        }
+
+        #legendbox20 {
+          /*opacity: 0.3;*/
+          /*background-color: lightgrey;*/
+          background-color: #111;
+        }
+
+        #legendbox19 {
+          /*opacity: 0.3;*/
+          background-color: #00429d;
+          margin-left: 10px;
+        }
+
+        #legendbox18 {
+          /*opacity: 0.3;*/
+          background-color: #3960aa;
+        }
+
+        #legendbox17 {
+          /*opacity: 0.3;*/
+          background-color: #5d7fb2;
+        }
+
+        #legendbox16 {
+          /*opacity: 0.3;*/
+          background-color: #839eb3;
+        }
+
+        #legendbox15 {
+          /*opacity: 0.3;*/
+          background-color: #ffa500;
+        }
+
+        #legendbox14 {
+          /*opacity: 0.3;*/
+          background-color: #f9723d;
+        }
+
+        #legendbox13 {
+          /*opacity: 0.3;*/
+          background-color: #e34349;
+        }
+
+        #legendbox12 {
+          /*opacity: 0.3;*/
+          background-color: #c01a46;
+        }
+
+        #legendbox11 {
+          /*opacity: 0.3;*/
+          background-color: #93003a;
+        }
+
+        .legendbox {
+          opacity: 0.75;
+        }
+
+        .legendnumber-container-1 {
+          margin: 18px auto 0;
+          /*padding-left: 17px;*/
+        }
+
+        .legendbox-container-2 p {
+          text-align: left
+        }
+
+        .legendnumber {
+          width: 46px;
+          float: left;
+          color: #555;
+          font-size: 12px;
+          line-height: 1em;
+          margin: 0;
+        }
+
+        #legendnumber2 {
+          margin-left: 35px;
+        }
+
+        .legendnumbersAveragePrice.hidden, 
+        .legendnumbersoneYrchamge.hidden, 
+        .legendnumberszeroYrchamge.hidden, 
+        .legendnumberstenYrchamge.hidden, 
+        .legendtitleAveragePrice.hidden, 
+        .legendtitlechange.hidden, 
+        .legendcoloursAveragePrice.hidden, 
+        .legendcolourschange.hidden {
+          display: none;
+        }
+
+        @media (max-width: 470px) {
+
+
+          .graphic-legend {
+            width: 400px;
+            margin:  0 auto;
+          }
+
+
+
+          .legendheading {
+            max-width: 400px;
+          }
+
+          .legendbox-container-1 {
+            width: 400px;
+          }
+
+          .legendbox-container-2 {
+            width: 400px;
+          }
+
+          .legendbox {
+            width: 34px;
+          }
+
+          .legendnumber {
+            width: 34px;
+          }
+
+          #legendnumber3, #legendnumber5, #legendnumber7, #legendnumber8 {
+            visibility: hidden;
+          }
+
+          #legendnumber2 {
+            margin-left: 34px;
+          }
+
+          .legendnumber-container-1 {
+            /*margin: 18px auto 0;*/
+            /*padding-left: 34px;*/
+          }
+
+          #legendnumber2 {
+            margin-left: 25px;
+          }
+          
+        }
+
+        @media (max-width: 400px) {
+
+
+          .graphic-legend {
+            width: 280px;
+            margin: 0 auto;
+          }
+
+
+
+          .legendheading {
+            max-width: 280px;
+          }
+
+          .legendbox-container-1 {
+            width: 280px;
+          }
+
+          .legendbox-container-2 {
+            width: 280px;
+          }
+
+          .legendbox {
+            width: 25px;
+          }
+
+          .legendnumber {
+            width: 25px;
+          }
+
+          #legendnumber3, #legendnumber5, #legendnumber7, #legendnumber8 {
+            visibility: hidden;
+          }
+
+          #legendnumber2 {
+            margin-left: 18px;
+          }
+          
+        }
+
+
+        /* ---------- Legend end ------------ */
+
+
+        /* ---------- Chart start ------------ */
+
+        #chartTitle {
+          margin: 11px 0 0;
+          padding: 0;
+          color:  #303030;
+        }
+
+        .chart-container {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; 
+          /*margin-top: 8px;*/
+          position: relative;
+          height: 160px;
+          /*height: 240px;*/
+        }
+
+        #svgshader {
+          height: 100%;
+          width: 100%;
+          position: absolute;
+
+          padding: 50px 70px;
+
+          background-color: #f6f5f5;
+          /*opacity: 0.6;*/
+        }
+
+        #svgshader.hidden {
+          display: none;
+        }
+
+        #svgshader p {
+          text-align: center;
+          opacity: 1;
+        }
+
+        #SA_chart {
+          width: 100%; 
+          position: absolute;
+        }
+
+        .tick text {
+          font-size: 12px;
+          fill: #404040;
+          /*letter-spacing: 0.3px;*/
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; }
+          @media (min-width: 526px) {
+            .tick text {
+              font-size: 12px; } }
+
+        .axis line, .axis path {
+          fill: none;
+          stroke: #404040;
+          shape-rendering: crispEdges; }
+
+        .axisY .domain {
+          opacity: 0;
+        }
+
+        .axisY g line{
+          stroke: #D3D3D3;
+        }
+
+        .axisY g:first-of-type line{
+          stroke: #000;
+        }
+
+        #SA_chart {
+            /*background-color: #c83933;*/
+          height: 150px; }
+          @media (min-width: 526px) {
+            #SA_chart {
+              height: 160px;
+              /*height: 240px;*/
+               } 
+             }
+
+        #hoverbox {
+          display: none; }
+          @media (min-width: 592px) {
+            #hoverbox {
+              display: block; } }
+
+        .y.axis line, .y.axis path, .t.axis path, .t.tick text {
+          display: none; }
+
+        .t.axis line {
+          stroke: #cfcfcf;
+          stroke-dasharray: 3,10; }
+
+        .c, .cd{
+          fill: #c83933;
+          /*stroke: #fff;*/
+          /*stroke-width: 2px; */
+        }
+
+        .y1, .y2 {
+          font-size: 12px; }
+
+        .line {
+          fill: none;
+          stroke: #c83933;
+          stroke-width: 2px; }
+          @media (min-width: 526px) {
+            .line {
+              stroke-width: 3px; } }
+
+        .line.hidden {
+          /*display: none;*/
+          stroke: #c83933;
+          stroke-width: 0px; 
+        }
+
+        .tick text.axislabel, .hover-cta {
+          font-size: 11px;
+          fill: #666; }
+          @media (min-width: 526px) {
+            .tick text.axislabel, .hover-cta {
+              font-size: 12px; } }
+          @media (min-width: 592px) {
+            .tick text.axislabel, .hover-cta {
+              font-size: 13px; } }
+
+        @media (max-width: 526px) {
+          .chart-container{
+            height: 165px;
+          }          
+
+          #svgshader {
+            padding: 10px 30px;
+          }
+        }
+
+        @media (max-width: 400px) {
+          #chartTitle{
+            font-size: 14px;}
+        }
+
+        /* ---------- Chart end ------------ */
+
+        /* ---------- Detail group start ------------ */
+
+        #info {
+            position: absolute;
+            bottom: 0px;
+            /*right: 0px;*/
+            right: -350px;
+            z-index: 11;
+            /*max-width: 170px;*/
+            /*height: auto;*/
+            height: 100%;
+            width: 350px;
+            /*height: calc( 100% - 60px);*/
+            background-color: rgba(247,247,247,0.9);
+            /*border-radius: 4px;*/
+            border: 1px solid #c0c0c0;
+        }
+
+        #infoCard {
+            padding: 10px;
+             background-color: rgba(247,247,247,0.9);
+             /*color: #fff;*/
+            line-height: 19px;
+            font-size: 14px;
+            z-index: 111;
+            /*border-radius: 3px;*/
+            /*max-width: 200px;*/
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter', 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+        }
+
+        #info p {
+          /*text-transform: lowercase;
+          font-variant: small-caps;*/
+          font-size: 18px;
+          font-size: smaller;
+          text-transform: uppercase;
+        }
+
+        .delatilgroup-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .itemsdescriptor {
+          flex-basis: 100%;
+        }
+
+        .item-container {
+          flex-basis: 100%;
+          margin-bottom: 9px;
+          padding: 0 0 9px;
+          border-bottom: 1px solid lightgrey;
+        }
+
+        .item-container:last-of-type {
+          border-bottom: none;          
+        }
+
+        #infoCard span#currentPriceNumber {
+          font-size: 22px;
+          font-weight: 600;
+          margin-top: 5px;
+        }
+
+        #infoCard span#currentPriceNumber{
+          padding: 2px 5px 2px 5px;
+          background-color: #bd0026;
+          border-radius: 5px;
+          color: #F8F8F8;
+        }
+
+        #infoCard .cta-wrapper {
+          margin-top: -10px;
+        }
+
+        #info .itemtitle-wrapper{
+          max-width: 200px;
+          margin: 4px 0 -20px;
+          padding: 0;
+          line-height: 15px;
+        }
+
+        .itemtitle {
+          padding: 0;
+          margin: 0;
+          font-size: 16px;
+            color:  #303030;
+        }
+
+        #info p.itemwords {
+          padding: 0;
+          margin: 0;
+          font-size: 22px;
+          font-weight: 600;
+          float: right;
+          color:  #000;
+        }
+
+        #pd h4 {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-family: 'Inter', 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        #infoCard.hidden {
+            display: none;
+        }
+
+
+        #info #closebutton {
+          float: right;
+          position: absolute;
+          height: 30px;
+          width: 30px;
+          right: 5px;
+          cursor: pointer;
+          margin: 2px;
+          /* display: none; */
+          background: #f8f8f882;
+        }
+
+        #info #closebutton .icon {
+           position: absolute;
+           top: 50%;
+           left: 50%;
+           transform: translate(-50%,-50%);
+           width: 24px;
+           height: 24px;
+
+        }
+
+        .gradient-container {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+
+          height: 28px;
+
+          background: rgb(248,248,248);
+          background: linear-gradient(180deg, rgba(248,248,248,0) 0%, rgba(248,248,248,1) 52%);
+        }
+
+        @media (min-width: 526px) {
+           .gradient-container {
+            display: none;
+           }
+        }
+
+        #infoCard h4 {
+            margin: 6px 0 8px 0;
+            line-height: 25px;
+            font-size: 24px;
+            max-width: calc( 100% - 30px );
+        }
+
+        #currentPrice {
+            /*margin: 15px 0 0;*/
+            color:  #303030;
+        }
+
+        #currentPriceNumber {
+            margin: 0 0 24px;
+            color:  #000;
+        }
+
+        #currentPriceHometype {
+          /*text-transform: lowercase;*/
+        }
+
+        @media (max-width: 768px) {
+            #info {
+                /*left: 8px;*/
+                /*right: auto;*/
+            }
+
+            .graphic-bottom__notetext {
+                font-size: 14px;
+            }
+
+            #infoCard {
+                /*height: 17px;*/
+                overflow: scroll;
+            }
+
+            #infoCard.open {
+                height: auto;
+                width: auto;
+            }
+        }
+
+        @media only screen and (min-width: 768px) {
+            .infoCard {
+                display: block;
+            }
+
+            .call-to-action:after {
+                content: "";
+            }
+        }
+
+
+
+      /*  @media (max-width: 526px) {
+            #info {
+              height: 100%;
+              height: 350px;
+              width: 220px;
+            }
+
+            #info .itemtitle-wrapper{
+              margin: 4px 0;
+            }
+        }*/
+
+        @media (max-width: 500px) {
+            #info {
+              width: calc(100% - 12px);
+              bottom: 0;
+              right: -500px;
+              margin: 0 auto;
+              overflow: scroll;
+              height: 250px;
+              margin:  6px;
+              border-radius: 3px;
+            }
+
+            #infoCard {
+              width: 100%;
+              overflow: scroll;
+              border-radius: 3px;
+            }
+
+            #infoCard h4 {
+                margin: 6px 0 1px 0;
+                line-height: 16px;
+                font-size: 16px;
+            }
+
+            #info .itemtitle-wrapper{
+              margin: 4px 0 -20px;
+              max-width: 146px;
+            }
+
+            p#currentPrice {
+              margin: 15px 0 0 ;
+              font-size: 14px;
+              font-size: smaller;
+            }
+
+            #currentPriceNumber {
+              font-weight: bold;
+              font-size: 16px;
+              margin: 2px 0 8px;
+            }
+
+        }
+
+
+
+        /* ---------- Detail group end ------------ */
+
+
+        .mapboxgl-popup {
+          pointer-events: none;
+        }
+
+    .graphic-wrapper.priced-out-map-graphic {
+            /*height: 0;*/
+            /*overflow: hidden;*/
+          }
+
+    </style>
+</head>
+
+<body>
+    <div class="graphic-wrapper priced-out-map-graphic">
+        <div class="graphic-top">
+            <h2 id="graphicheader" class="graphic-top__graphic-hed">Home prices in the GTA</h2>
+            <!-- <h3 class="graphic-top__graphic-dek">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione nam cum iure esse debitis dolorum aliquid nesciunt eos nulla animi, aliquam laborum laboriosam! Nostrum fugiat alias tempora repudiandae expedita inventore.</h3> -->
+        </div>
+
+        <div class="cta-wrapper">
+          <span class="interactive-graphic-cta interactive-graphic-cta__desktop"><img height="23px" class="interactive-graphic-cta-image" src="https://misc.thestar.com/interactivegraphic/libraries/interactive-graphic-cta/SVG/Hover.svg">Hover over the map areas to see find names. </span>
+          <span class="interactive-graphic-cta interactive-graphic-cta__desktop"><img height="23px" class="interactive-graphic-cta-image" src="https://misc.thestar.com/interactivegraphic/libraries/interactive-graphic-cta/SVG/Tap.svg">Click on each area to get a breakdown.</span>
+          <span class="interactive-graphic-cta interactive-graphic-cta__mobile"><img height="23px" class="interactive-graphic-cta-image" src="https://misc.thestar.com/interactivegraphic/libraries/interactive-graphic-cta/SVG/Tap.svg">Tap on each area to get a breakdown.</span>
+        </div>
+
+      
+
+        <!-- <div class="map-overlay" id="features">
+            <div id="pd">
+                <div class="call-to-action"></div>
+            </div>
+        </div> -->
+
+        <div id='map'>
+            <div id="info">
+                <!-- <div class="hidden" id='infoCard'> -->
+                <div class="" id='infoCard'>
+                    <div id="closebutton"><image class="icon" src="close-icon.svg" border="0"></div>
+                    <h4> <span id="areaName">Adjala-Tosorontio</span> <span id="torontoID"></span></h4>
+
+                    <!-- <p id="currentPrice"><span id="updateDate"></span> <span id="currentPriceHometype">all</span> AveragePrice price: <span id="currentPriceNumber">$1,101,800</span></p>  -->
+
+                      <p class="buttoninstructions">Select a home type:</p>
+                    <div id="button-group-wrapper2" class="button-group-wrapper">
+                      <div id="pills-container" class="button-group">
+                              <button id="button4" class="button pill houseTypebutton all active" data="all">All</button>
+                              <button id="button5" class="button pill houseTypebutton detached" data="detached">Detached</button>
+                              <button id="button6" class="button pill houseTypebutton attached" data="attached">Attached</button>
+                              <button id="button7" class="button pill houseTypebutton condotownhouse" data="condotownhouse">Condo townhouse</button>
+                              <button id="button8" class="button pill houseTypebutton condoapartment" data="condoapartment">Condo apartment</button>
+                      </div>
+                    </div>
+
+                    <div class="delatilgroup-wrapper">
+                        <!-- <p class="itemsdescriptor">Percent change</p> -->
+                        <div class="item-container">
+                          <div class="itemtitle-wrapper">
+                            <p id="currentPrice" class="itemtitle"><span id="updateDate"></span> <span id="currentPriceHometype">All</span> Average price</p>
+                          </div>
+                          <p id="currentPriceNumber" class="itemwords">$1,101,800</p>
+                        </div>
+
+                        <div class="item-container">
+                          <div class="itemtitle-wrapper"><p class="itemtitle">1-month % chg</p></div>
+                          <p class="itemwords"><span id="zeroyrCardNumber">113.11%</span></p>
+                          
+                          <!-- <p class="itemwords"><span id="detachedarrow">&#8593;</span><span id="detacheditemnumber">48%</span></p> -->
+                        </div>
+
+                        <!-- <p class="itemsdescriptor">Percent change</p> -->
+                        <div class="item-container">
+                          <div class="itemtitle-wrapper"><p class="itemtitle">1-year % chg</p></div>
+                          <p class="itemwords"><span id="oneyrCardNumber">46.11%</span></p>
+                          
+                          <!-- <p class="itemwords"><span id="allarrow">&#8593;</span><span id="allitemnumber">48%</span></p> -->
+                        </div>
+
+                        <div class="item-container">
+                          <div class="itemtitle-wrapper"><p class="itemtitle">10-year % chg</p></div>
+                          <p class="itemwords"><span id="tenyrCardNumber">278.26%</span></p>
+                          
+                          <!-- <p class="itemwords"><span id="attachedarrow">&#8593;</span><span id="attacheditemnumber">48%</span></p> -->
+                        </div>
+                    </div>
+                    
+                    <p id="chartTitle"><span id="housetypeoncard">All</span> Average price price over time</p> 
+                    <div class="chart-container">
+                        <svg id="SA_chart"></svg>
+                        <div id="svgshader" class="hidden">
+                          <p class="nodataWords">No data available for the selected parameters</p>
+                        </div>
+                    </div>
+                    <div class="cta-wrapper">
+                      <span class="interactive-graphic-cta interactive-graphic-cta__desktop"><img height="23px" class="interactive-graphic-cta-image" src="https://misc.thestar.com/interactivegraphic/libraries/interactive-graphic-cta/SVG/Hover.svg">Hover over the chart for prices. </span>
+                    </div>
+
+                    <!-- <p class="dates">Start Date: <span id="startDate"></span></p> -->
+                    <!-- <p class="dates">End Date: <span id="endDate"></span></p> -->
+                </div>
+                 <div class="gradient-container"></div>
+            </div>
+        </div>
+
+        <div class="legend-bottom">
+
+                <div class="graphic-legend active-legend" id="graphic-legend-1">
+                  <p id="" class="legendTitle legendheading"><span class="housetypeonLegend">All</span> <span class="legendtitleAveragePrice"> average price </span><span id="" class="legendtitlechange hidden"> per cent change</span></p>
+
+              <div id="" class="legendcoloursAveragePrice legendbox-container-1 clearfix">
+                  <div class="legendbox" id="legendbox10"></div>
+                  <div class="legendbox" id="legendbox9"></div>
+                  <div class="legendbox" id="legendbox8"></div>
+                  <div class="legendbox" id="legendbox7"></div>
+                  <div class="legendbox" id="legendbox6"></div>
+                  <div class="legendbox" id="legendbox5"></div>
+                  <div class="legendbox" id="legendbox4"></div>
+                  <div class="legendbox" id="legendbox3"></div>
+                  <div class="legendbox" id="legendbox2"></div>
+                  <div class="legendbox" id="legendbox1"></div>
+              </div>
+
+              <div id="" class="legendcolourschange legendbox-container-1 clearfix hidden">
+                  <div class="legendbox" id="legendbox20"></div>
+                  <div class="legendbox" id="legendbox19"></div>
+                  <div class="legendbox" id="legendbox18"></div>
+                  <div class="legendbox" id="legendbox17"></div>
+                  <div class="legendbox" id="legendbox16"></div>
+                  <div class="legendbox" id="legendbox15"></div>
+                  <div class="legendbox" id="legendbox14"></div>
+                  <div class="legendbox" id="legendbox13"></div>
+                  <div class="legendbox" id="legendbox12"></div>
+                  <div class="legendbox" id="legendbox11"></div>
+              </div>
+              <div id="" class="legendnumbersAveragePrice legendnumber-container-1 clearfix">
+                  <p class="legendnumber" id="legendnumber1">NA</p>
+                  <p class="legendnumber" id="legendnumber2">$250K</p>
+                  <p class="legendnumber" id="legendnumber3">$500K</p>
+                  <p class="legendnumber" id="legendnumber4">$750K</p>
+                  <p class="legendnumber" id="legendnumber5">$1M</p>
+                  <p class="legendnumber" id="legendnumber6">$1.25M</p>
+                  <p class="legendnumber" id="legendnumber7">$1.5M</p>
+                  <p class="legendnumber" id="legendnumber8">$1.75M</p>
+                  <p class="legendnumber" id="legendnumber9">$2M+</p>
+              </div>
+              <div id="" class="legendnumbersoneYrchamge legendnumber-container-1 clearfix hidden">
+                  <p class="legendnumber" id="legendnumber1">NA</p>
+                  <p class="legendnumber" id="legendnumber2">-15%</p>
+                  <p class="legendnumber" id="legendnumber3">-10%</p>
+                  <p class="legendnumber" id="legendnumber4">-5%</p>
+                  <p class="legendnumber" id="legendnumber5">0%</p>
+                  <p class="legendnumber" id="legendnumber6">5%</p>
+                  <p class="legendnumber" id="legendnumber7">10%</p>
+                  <p class="legendnumber" id="legendnumber8">15%</p>
+                  <p class="legendnumber" id="legendnumber9">20%+</p>
+              </div>
+              <div id="" class="legendnumberszeroYrchamge legendnumber-container-1 clearfix hidden">
+                  <p class="legendnumber" id="legendnumber1">NA</p>
+                  <p class="legendnumber" id="legendnumber2">-15%</p>
+                  <p class="legendnumber" id="legendnumber3">-10%</p>
+                  <p class="legendnumber" id="legendnumber4">-5%</p>
+                  <p class="legendnumber" id="legendnumber5">0%</p>
+                  <p class="legendnumber" id="legendnumber6">5%</p>
+                  <p class="legendnumber" id="legendnumber7">10%</p>
+                  <p class="legendnumber" id="legendnumber8">15%</p>
+                  <p class="legendnumber" id="legendnumber9">20%+</p>
+              </div>
+              <div id="" class="legendnumberstenYrchamge legendnumber-container-1 clearfix hidden">
+                  <p class="legendnumber" id="legendnumber1">NA</p>
+                  <p class="legendnumber" id="legendnumber2">50%</p>
+                  <p class="legendnumber" id="legendnumber3">100%</p>
+                  <p class="legendnumber" id="legendnumber4">150%</p>
+                  <p class="legendnumber" id="legendnumber5">200%</p>
+                  <p class="legendnumber" id="legendnumber6">250%</p>
+                  <p class="legendnumber" id="legendnumber7">300%</p>
+                  <p class="legendnumber" id="legendnumber8">350%</p>
+                  <p class="legendnumber" id="legendnumber9">400%+</p>
+              </div>
+
+            <!-- <div class="legendbox-container-2 clearfix">
+              <p> <span class="legendbox" id="legendbox22"></span> Recreation Centres</p>
+            </div> -->
+          </div>
+      </div>
+
+
+        
+          <div class="filterMenu"><input type="checkbox" id="burgerMenu"><label for="burgerMenu" id="menuLabel">Filters <i class="fas fa-bars"></i> <i class="fas fa-times"></i></label>
+
+            <div class="filterBox clearfix">
+
+                <p class="buttoninstructions">Change the measure displayed on the map:</p>
+              <div id="button-group-wrapper1" class="button-group-wrapper">
+                <div id="houstype-group" class="button-group">
+                          <button id="AveragePrice" class="button meassurebutton active" data="oneyrAveragePrice">Average price</button>
+                          <!-- <button id="change" class="meassurebutton" data="Chg">Percentage change</button> -->
+                </div>
+                <div id="timeSpanbutton-container" class="button-group">
+                          <button id="button1" class="button timeSpanbutton" data="tenyr">10-year % chg</button>
+                          <button id="button3" class="button timeSpanbutton" data="oneyr">1-year % chg</button>
+                          <button id="button2" class="button timeSpanbutton" data="zeroyr">1-month % chg</button>
+                </div>
+              </div>
+
+                <p class="buttoninstructions">Select a home type to be displayed on the map:</p>
+              <div id="button-group-wrapper2" class="button-group-wrapper">
+                <div id="pills-container" class="button-group">
+                        <button id="button4" class="button pill houseTypebutton all active" data="all">All</button>
+                        <button id="button5" class="button pill houseTypebutton detached" data="detached">Detached</button>
+                        <button id="button6" class="button pill houseTypebutton attached" data="attached">Attached</button>
+                        <button id="button7" class="button pill houseTypebutton condotownhouse" data="condotownhouse">Condo townhouse</button>
+                        <button id="button8" class="button pill houseTypebutton condoapartment" data="condoapartment">Condo apartment</button>
+                </div>
+              </div>
+
+              <div class="dropdown-container">
+
+                  <!-- Dropdown -->       
+                  <!-- <select id='selUser'> -->
+                  <select id='selUser'>
+                      <option id="dropdowndefaultoption" value="0" disabled selected>Search an area</option>        
+                      <option class="optionItem" value='Adjala-Tosorontio'>Adjala-Tosorontio</option>
+                      <option class="optionItem" value='Ajax'>Ajax</option>
+                      <option class="optionItem" value='Toronto C02'>Annex/ Yonge-St. Clair (C02)</option>
+                      <option class="optionItem" value='Aurora'>Aurora</option>
+                      <option class="optionItem" value='Toronto C06'>Bathurst Manor (C06)</option>
+                      <option class="optionItem" value='Toronto E02'>Beaches/ Danforth southeast (E02)</option>
+                      <option class="optionItem" value='Toronto E09'>Bendale (E09)</option>
+                      <option class="optionItem" value='Toronto E06'>Birchcliffe-Cliffside/ Oakridge (E06)</option>
+                      <option class="optionItem" value='Toronto W02'>Bloor West (W02)</option>
+                      <option class="optionItem" value='Bradford West Gwillimbury'>Bradford West Gwillimbury</option>
+                      <option class="optionItem" value='Toronto E03'>East York (E03)</option>
+                      <option class="optionItem" value='Brampton'>Brampton</option>
+                      <option class="optionItem" value='Brock'>Brock</option>
+                      <option class="optionItem" value='Burlington'>Burlington</option>
+                      <option class="optionItem" value='Caledon'>Caledon</option>
+                      <!-- <option class="optionItem" value='City of Toronto'>City of Toronto</option> -->
+                      <option class="optionItem" value='Clarington'>Clarington</option>
+                      <option class="optionItem" value='Dufferin County'>Dufferin County</option>
+                      <!-- <option class="optionItem" value='Durham Region'>Durham Region</option> -->
+                      <option class="optionItem" value='East Gwillimbury'>East Gwillimbury</option>
+                      <option class="optionItem" value='Essa'>Essa</option>
+                      <option class="optionItem" value='Toronto W08'>Etobicoke south (W08)</option>
+                      <option class="optionItem" value='Toronto W06'>Etobicoke lakeshore (W06)</option>
+                      <option class="optionItem" value='Toronto W09'>Etobicoke centre (W09)</option>
+                      <option class="optionItem" value='Toronto W10'>Etobicoke north (W10)</option>
+                      <option class="optionItem" value='Georgina'>Georgina</option>
+                      <option class="optionItem" value='Halton Hills'>Halton Hills</option>
+                      <!-- <option class="optionItem" value='Halton Region'>Halton Region</option> -->
+                      <option class="optionItem" value='Toronto W01'>High Park-Swansea (W01)</option>
+                      <option class="optionItem" value='Innisfil'>Innisfil</option>
+                      <option class="optionItem" value='Toronto C04'>Lawrence west (C04)</option>
+                      <option class="optionItem" value='Toronto C11'>Leaside (C11)</option>
+                      <option class="optionItem" value='King'>King</option>
+                      <option class="optionItem" value='Markham'>Markham</option>
+                      <option class="optionItem" value='Toronto E11'>Malvern/ Rouge (E11)</option>
+                      <option class="optionItem" value='Toronto E07'>Milliken (E07)</option>
+                      <option class="optionItem" value='Milton'>Milton</option>
+                      <option class="optionItem" value='Mississauga'>Mississauga</option>
+                      <option class="optionItem" value='Toronto C10'>Mount Pleasant (C10)</option>
+                      <option class="optionItem" value='New Tecumseth'>New Tecumseth</option>
+                      <option class="optionItem" value='Newmarket'>Newmarket</option>
+                      <option class="optionItem" value='Toronto C07'>North York Core west (C07)</option>
+                      <option class="optionItem" value='Toronto C14'>North York Core east (C14)</option>
+                      <option class="optionItem" value='Toronto C15'>North York northeast (C15)</option>
+                      <option class="optionItem" value='Toronto W05'>North York northwest (W05)</option>
+                      <option class="optionItem" value='Toronto W04'>North York southwest (W04)</option>
+                      <option class="optionItem" value='Oakville'>Oakville</option>
+                      <option class="optionItem" value='Orangeville'>Orangeville</option>
+                      <option class="optionItem" value='Oshawa'>Oshawa</option>
+                      <!-- <option class="optionItem" value='Peel Region'>Peel Region</option> -->
+                      <option class="optionItem" value='Toronto C13'>Parkwoods Donalda (C13)</option>
+                      <option class="optionItem" value='Pickering'>Pickering</option>
+                      <option class="optionItem" value='Richmond Hill'>Richmond Hill</option>
+                      <option class="optionItem" value='Toronto E01'>Riverdale/ Danforth southwest (E01)</option>
+                      <option class="optionItem" value='Toronto C09'>Rosedale/ Moore Park (C09)</option>
+                      <option class="optionItem" value='Toronto E10'>Scarborough lakeshore east (E10)</option>
+                      <option class="optionItem" value='Toronto E08'>Scarborough lakeshore west (E08)</option>
+                      <option class="optionItem" value='Toronto E05'>Scarborough northwest (E05)</option>
+                      <option class="optionItem" value='Toronto E04'>Scarborough southwest (E04)</option>
+                      <option class="optionItem" value='Scugog'>Scugog</option>
+                      <option class="optionItem" value='Simcoe County'>Simcoe County</option>
+                      <option class="optionItem" value='Toronto C12'>St. Andrews-Windfields (C12)</option>
+                      <option class="optionItem" value='Toronto W07'>Stonegate-Queensway (W07)</option>
+                      <!-- <option class="optionItem" value='TREB Total'>TREB Total</option> -->
+                      <option class="optionItem" value='Toronto C08'>Toronto Core east (C08)</option>
+                      <option class="optionItem" value='Toronto C01'>Toronto Core west (C01)</option>
+                      <option class="optionItem" value='Uxbridge'>Uxbridge</option>
+                      <option class="optionItem" value='Vaughan'>Vaughan</option>
+                      <option class="optionItem" value='Toronto C03'>West Midtown (C03)</option>
+                      <option class="optionItem" value='Whitby'>Whitby</option>
+                      <option class="optionItem" value='Whitchurch-Stouffville'>Whitchurch-Stouffville</option>
+                      <option class="optionItem" value='Toronto W03'>York Centre (W03)</option>
+                      <!-- <option class="optionItem" value='York Region'>York Region</option> -->
+                  </select>   
+
+                  <!-- <input type='button' value='Find' id='but_read' style="width: 80px;"> -->
+
+                  <!-- <div id='result'></div> -->
+              </div>
+
+            </div>
+
+        </div>
+        <div class="graphic-bottom">
+            <p class="graphic-bottom__notetext" id="notetext">The Toronto Regional Real Estate Board reports on home transactions for the City of Toronto, Peel, Durham, York and Halton regions. It also covers southern Simcoe County and Orangeville in Dufferin County. Municipalities such as Hamilton and Barrie have separate real estate boards, although there is an “interboard” that allows realtors to post on another board’s Multiple Listings Service. 
+              <!-- <br/>The MLS Home Price Index (HPI) benchmark price refers to the estimated price of a typical home within a defined area based on features such as lot size, square footage, number of bedrooms and bathrooms and age of the property. Unlike the averagePrice selling price that is influenced by changes in market conditions and the mix of homes sold, the AveragePrice price is considered an apples-to-apples comparison of home values. -->
+            </p>
+            <p class="graphic-bottom__graphic-source" id="source">Source: Toronto Regional Real Estate Board</p>
+            <p class="graphic-bottom__graphic-byline" id="byline">Andres Plana/ Toronto Star graphic</p>
+        </div>
+    </div>
+
+    <script>
+
+    document.addEventListener('touchstart', {});
+
+    var rightPush = "0px";
+    var desktopLonComp = 0.036;
+    var mobileLatComp = 0;
+    var mobilezoomComp = 0;
+    var xTicks = 5;
+    var zoomTo = 12;
+
+    if (window.innerWidth < 526) {
+      rightPush = "0px";
+      desktopLonComp = 0;
+      mobileLatComp = -0.04;
+      mobilezoomComp = -1;
+      xTicks = 3
+    }
+
+    if (window.innerWidth < 400) {
+      rightPush = "0px";
+      desktopLonComp = 0;
+      mobileLatComp = -0.04;
+      mobilezoomComp = -1;
+      xTicks = 4
+    }
+
+    var zoomtoOnLargeAreas = function(e){
+      if (e != '') {
+        return 0
+      } else {
+        return -2
+      }
+    }
+
+    if (window.innerWidth < 620) {
+        var zoom = 7.663654007844582;
+        var center = [-79.38555,43.69400]
+        var bounds = [
+            [-85.11079, 39.85641], // Southwest coordinates
+            [-75.00513, 47.10613] // Northeast coordinates
+        ];
+    } else {
+        // var zoom = 9.626811837802922
+        var zoom = 8.126811837802922
+        var center = [-79.38555,43.69400]
+        var bounds = [
+            [-81.66958, 42.55397], // Southwest coordinates
+            [-77.11247, 44.68875] // Northeast coordinates
+        ];
+
+    }
+    //Put your Mapbox Public Access token here
+    mapboxgl.accessToken = 'pk.eyJ1IjoidG9yb250b3N0YXIiLCJhIjoicjB0aUZoayJ9.kA7XwicoTQeHbRCo5dzjkw';
+    // mapboxgl.accessToken = 'pk.eyJ1IjoidG9yb250b3N0YXIiLCJhIjoiY2wxNWdpbHQzMHQzOTNqb2Q2dzJleGhjayJ9.ayK4stWs34ZXD6C-MTbwqQ';
+
+    //Load a new map in the 'map' HTML div
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/torontostar/cl09svm8d001l14mshicxzxnj',
+        center: center,
+        zoom: zoom + mobilezoomComp +1.5,
+        maxBounds: bounds,
+        minZoom: 6,
+
+    });
+
+    // Add zoom and rotation controls to the map.
+    // map.addControl(new mapboxgl.NavigationControl());
+    const nav = new mapboxgl.NavigationControl();
+    map.addControl(nav, 'top-left');
+
+    map.scrollZoom.disable();
+
+    map.dragRotate.disable();
+     
+    map.touchZoomRotate.disableRotation();
+
+    var hoveredStateId = null;
+
+    var jsonData = {"type":"FeatureCollection", "features":[]};
+
+    var lastupdated = '';
+
+    var parseDate = d3.timeParse("%m-%Y");
+    var formatTime = d3.timeFormat("%b %Y");
+    var formatLongTime = d3.timeFormat("%B %Y");
+    var formatDollars = d3.format("$,")
+    var formatPercent = d3.format(".2f")
+
+    var bisectDate = d3.bisector(function(d) { return d.date; }).left;
+
+    var sumstat;
+    var usethisArea_onChart;
+
+
+
+
+    var areaID = location.search.substring(1).replace(/%20/g, " ");
+
+    if (areaID != '') {
+      usethisArea_onChart = areaID
+      // d3.select('#graphicheader').text('Home prices in ' + areaID + ' and the rest of the GTA')
+      console.log(areaID)
+    } else {
+      usethisArea_onChart = "Adjala-Tosorontio";
+      // console.log("empty")      
+    }
+
+    var colours = ['lightgrey', '#ffeda0', '#fad58f', '#f4bc7f', '#eda46f', '#e58b5f', '#dc7250', '#d35741', '#c83933', '#bd0026']
+    var colours2 = ['lightgrey', '#00429d', '#3960aa', '#5d7fb2', '#839eb3', '#ffa500', '#f9723d', '#e34349', '#c01a46', '#93003a']
+    // var colours2 = ['lightgrey', '#00429d', '#514c91', '#745784', '#8f6277', '#a86f69', '#bf7c5a', '#d58949', '#ea9732', '#ffa500']
+
+
+    // set the dimensions and margins of the graph
+    var margin = {top: 16, right: 28, bottom: 20, left: 40},
+      width = parseInt(d3.select('#SA_chart').style('width')),
+      width = width - margin.left - margin.right,
+      height = width/2.4;
+
+    if (window.innerWidth < 526) {
+      height = 110
+    }
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#SA_chart")
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+
+    
+d3.csv("data/merged_TRREB_data.csv",function(data){
+
+
+      data.forEach(function(d) {
+          // d.allAveragePrice = +d.allAveragePrice;
+          d.date = parseDate(d.date)
+          d.id = +d.id
+          d.allAveragePrice = +d.allAveragePrice
+          // d.allChg = +d.allChg
+          d.detachedAveragePrice = +d.detachedAveragePrice
+          // d.detachedChg = +d.detachedChg
+          d.attachedAveragePrice = +d.attachedAveragePrice
+          // d.attachedChg = +d.attachedChg
+          d.condotownhouseAveragePrice = +d.condotownhouseAveragePrice
+          // d.condotownhouseChg = +d.condotownhouseChg
+          d.condoapartmentAveragePrice = +d.condoapartmentAveragePrice
+      });
+
+  console.log(data)
+
+      data = data.slice().sort((a, b) => d3.ascending(a.area, b.area) || d3.ascending(a.year, b.year))
+   
+    var testNaN = function(a){
+        if ( isNaN(a) || isFinite(a) == false || a <= -50){
+          return NaN
+        } else {
+          return a
+        }
+    }
+
+    var getTenYearsAgo = function(a){
+      var sortItFirst = data.slice().sort((a, b) => d3.ascending(+a.year, +b.year) || d3.ascending(+a.month, +b.month))
+      var extracttenthtyear = sortItFirst[sortItFirst.length-1].year - 10
+      var extractfirstmonth = sortItFirst[0].month
+      var extractfirstdate = sortItFirst[0].date
+
+      return sortItFirst.filter(function(d){return d.year == extracttenthtyear &&  d.month == extractfirstmonth })
+    }
+
+    var getfiveYearsAgo = function(a){
+      var sortItFirst = data.slice().sort((a, b) => d3.ascending(+a.year, +b.year) || d3.ascending(+a.month, +b.month))
+
+      var extractfifthyear = sortItFirst[sortItFirst.length-1].year - 5
+      var extractfifthmonth = sortItFirst[sortItFirst.length-1].month
+
+      return sortItFirst.filter(function(d){return d.year == extractfifthyear &&  d.month == extractfifthmonth })
+    }
+
+    var getoneYearsAgo = function(a){
+      var sortItFirst = data.slice().sort((a, b) => d3.ascending(+a.year, +b.year) || d3.ascending(+a.month, +b.month))
+
+      var extractlastyear = sortItFirst[sortItFirst.length-1].year - 1
+      var extractlastmonth = sortItFirst[sortItFirst.length-1].month
+
+      return sortItFirst.filter(function(d){return d.year == extractlastyear &&  d.month == extractlastmonth })
+    }
+
+    var getSecondLastMonth = function(a){
+      var sortItFirst = data.slice().sort((a, b) => d3.ascending(+a.year, +b.year) || d3.ascending(+a.month, +b.month))
+      var extractsecondlastmonth, extractlastyear;
+
+      if (sortItFirst[sortItFirst.length-1].month == 1) { 
+        extractsecondlastmonth = 12
+      } else {
+        extractsecondlastmonth = sortItFirst[sortItFirst.length-1].month - 1 
+      }
+
+      if (extractsecondlastmonth == 12) { 
+        extractlastyear = sortItFirst[sortItFirst.length-1].year - 1
+      } else {
+        extractlastyear = sortItFirst[sortItFirst.length-1].year
+      }
+
+      var extractsecondlastdate = sortItFirst[sortItFirst.length-1].date
+
+      return sortItFirst.filter(function(d){return d.year == extractlastyear &&  d.month == extractsecondlastmonth })
+    }
+
+    var getLastMonth = function(a){
+      var sortItFirst = data.slice().sort((a, b) => d3.ascending(+a.year, +b.year) || d3.ascending(+a.month, +b.month))
+      var extractlastyear = sortItFirst[sortItFirst.length-1].year
+      var extractlastmonth = sortItFirst[sortItFirst.length-1].month
+      var extractlastdate = sortItFirst[sortItFirst.length-1].date
+
+      d3.select('#updateDate').text(formatLongTime(extractlastdate))
+
+      return sortItFirst.filter(function(d){return d.year == extractlastyear &&  d.month == extractlastmonth })
+    }
+
+    var firstyrthdata = getTenYearsAgo()
+    var fifthyrthdata = getfiveYearsAgo()
+    var lastyrthdata = getoneYearsAgo()
+    var secondlastmonthdata = getSecondLastMonth()
+    var lastmonthdata = getLastMonth()
+
+    var getThisHomeType = "all"
+    var getThisTimeSpan = "oneyr"
+    var getThisMeassure = "AveragePrice"
+    var getThisProperty = "oneyrallAveragePrice"
+
+
+    var clickeddStateIdChecker = 0;
+    var hoveredStateIdChecker = 0;
+
+
+    //Load the vector tile source from our Mapbox Pedestrian traffic example
+    map.on('load', function() {
+        // // disable map rotation using right click + drag
+        // map.dragRotate.disable();
+        // // disable map rotation using touch rotation gesture
+        // map.touchZoomRotate.disableRotation();
+
+
+
+
+        // make tha calculations to add to the json file
+
+        d3.json('TRREB-all-zones-4.geojson',function(error, thisjson){
+          if (error) throw error;
+
+          var calcPctChange = function(a,b) {
+
+            return testNaN((a-b)/b*100)
+          }
+
+          thisjson.features.forEach(function(e,i){
+            // console.log(e)
+
+            //tenyear assignment
+            for (var x = 0; x < firstyrthdata.length; x++) {
+              if (e.area == firstyrthdata[x].area) {
+                e.properties.tenyrallAveragePrice = testNaN(firstyrthdata[x].allAveragePrice)
+                e.properties.tenyrdetachedAveragePrice = testNaN(firstyrthdata[x].detachedAveragePrice)
+                e.properties.tenyrattachedAveragePrice = testNaN(firstyrthdata[x].attachedAveragePrice)
+                e.properties.tenyrcondotownhouseAveragePrice = testNaN(firstyrthdata[x].condotownhouseAveragePrice)
+                e.properties.tenyrcondoapartmentAveragePrice = testNaN(firstyrthdata[x].condoapartmentAveragePrice)
+              }
+            }
+
+            //fiveyear assignment
+            for (var x = 0; x < fifthyrthdata.length; x++) {
+              if (e.area == fifthyrthdata[x].area) {
+                e.properties.fiveyrallAveragePrice = testNaN(fifthyrthdata[x].allAveragePrice)
+                e.properties.fiveyrdetachedAveragePrice = testNaN(fifthyrthdata[x].detachedAveragePrice)
+                e.properties.fiveyrattachedAveragePrice = testNaN(fifthyrthdata[x].attachedAveragePrice)
+                e.properties.fiveyrcondotownhouseAveragePrice = testNaN(fifthyrthdata[x].condotownhouseAveragePrice)
+                e.properties.fiveyrcondoapartmentAveragePrice = testNaN(fifthyrthdata[x].condoapartmentAveragePrice)
+              }
+            }
+
+            //lastyear assignment
+            for (var x = 0; x < lastyrthdata.length; x++) {
+              if (e.area == lastyrthdata[x].area) {
+                e.properties.lastyrallAveragePrice = testNaN(lastyrthdata[x].allAveragePrice)
+                e.properties.lastyrdetachedAveragePrice = testNaN(lastyrthdata[x].detachedAveragePrice)
+                e.properties.lastyrattachedAveragePrice = testNaN(lastyrthdata[x].attachedAveragePrice)
+                e.properties.lastyrcondotownhouseAveragePrice = testNaN(lastyrthdata[x].condotownhouseAveragePrice)
+                e.properties.lastyrcondoapartmentAveragePrice = testNaN(lastyrthdata[x].condoapartmentAveragePrice)
+              }
+            }
+
+            // one month assignment
+            for (var x = 0; x < secondlastmonthdata.length; x++) {
+              if (e.area == secondlastmonthdata[x].area) {
+                e.properties.zeroyrallAveragePrice = testNaN(secondlastmonthdata[x].allAveragePrice)
+                e.properties.zeroyrdetachedAveragePrice = testNaN(secondlastmonthdata[x].detachedAveragePrice)
+                e.properties.zeroyrattachedAveragePrice = testNaN(secondlastmonthdata[x].attachedAveragePrice)
+                e.properties.zeroyrcondotownhouseAveragePrice = testNaN(secondlastmonthdata[x].condotownhouseAveragePrice)
+                e.properties.zeroyrcondoapartmentAveragePrice = testNaN(secondlastmonthdata[x].condoapartmentAveragePrice)
+              }
+            }
+
+
+            //oneyear assignment
+            for (var x = 0; x < lastmonthdata.length; x++) {
+              if (e.area == lastmonthdata[x].area) {
+                e.properties.oneyrallAveragePrice = testNaN(lastmonthdata[x].allAveragePrice)
+                e.properties.oneyrdetachedAveragePrice = testNaN(lastmonthdata[x].detachedAveragePrice)
+                e.properties.oneyrattachedAveragePrice = testNaN(lastmonthdata[x].attachedAveragePrice)
+                e.properties.oneyrcondotownhouseAveragePrice = testNaN(lastmonthdata[x].condotownhouseAveragePrice)
+                e.properties.oneyrcondoapartmentAveragePrice = testNaN(lastmonthdata[x].condoapartmentAveragePrice)
+                
+                // e.properties.oneyrallChg = testNaN(lastmonthdata[x].allChg)
+                // e.properties.oneyrdetachedChg = testNaN(lastmonthdata[x].detachedChg)
+                // e.properties.oneyrattachedChg = testNaN(lastmonthdata[x].attachedChg)
+                // e.properties.oneyrcondotownhouseChg = testNaN(lastmonthdata[x].condotownhouseChg)
+                // e.properties.oneyrcondoapartmentChg = testNaN(lastmonthdata[x].condoapartmentChg)
+
+                e.properties.tenyrallChg = calcPctChange(lastmonthdata[x].allAveragePrice,e.properties.tenyrallAveragePrice)
+                e.properties.tenyrdetachedChg = calcPctChange(lastmonthdata[x].detachedAveragePrice,e.properties.tenyrdetachedAveragePrice)
+                e.properties.tenyrattachedChg = calcPctChange(lastmonthdata[x].attachedAveragePrice,e.properties.tenyrattachedAveragePrice)
+                e.properties.tenyrcondotownhouseChg = calcPctChange(lastmonthdata[x].condotownhouseAveragePrice,e.properties.tenyrcondotownhouseAveragePrice)
+                e.properties.tenyrcondoapartmentChg = calcPctChange(lastmonthdata[x].condoapartmentAveragePrice,e.properties.tenyrcondoapartmentAveragePrice)
+
+                e.properties.fiveyrallChg = calcPctChange(lastmonthdata[x].allAveragePrice,e.properties.fiveyrallAveragePrice)
+                e.properties.fiveyrdetachedChg = calcPctChange(lastmonthdata[x].detachedAveragePrice,e.properties.fiveyrdetachedAveragePrice)
+                e.properties.fiveyrattachedChg = calcPctChange(lastmonthdata[x].attachedAveragePrice,e.properties.fiveyrattachedAveragePrice)
+                e.properties.fiveyrcondotownhouseChg = calcPctChange(lastmonthdata[x].condotownhouseAveragePrice,e.properties.fiveyrcondotownhouseAveragePrice)
+                e.properties.fiveyrcondoapartmentChg = calcPctChange(lastmonthdata[x].condoapartmentAveragePrice,e.properties.fiveyrcondoapartmentAveragePrice)
+
+                e.properties.oneyrallChg = calcPctChange(lastmonthdata[x].allAveragePrice,e.properties.lastyrallAveragePrice)
+                e.properties.oneyrdetachedChg = calcPctChange(lastmonthdata[x].detachedAveragePrice,e.properties.lastyrdetachedAveragePrice)
+                e.properties.oneyrattachedChg = calcPctChange(lastmonthdata[x].attachedAveragePrice,e.properties.lastyrattachedAveragePrice)
+                e.properties.oneyrcondotownhouseChg = calcPctChange(lastmonthdata[x].condotownhouseAveragePrice,e.properties.lastyrcondotownhouseAveragePrice)
+                e.properties.oneyrcondoapartmentChg = calcPctChange(lastmonthdata[x].condoapartmentAveragePrice,e.properties.lastyrcondoapartmentAveragePrice)
+
+                e.properties.zeroyrallChg = calcPctChange(lastmonthdata[x].allAveragePrice,e.properties.zeroyrallAveragePrice)
+                e.properties.zeroyrdetachedChg = calcPctChange(lastmonthdata[x].detachedAveragePrice,e.properties.zeroyrdetachedAveragePrice)
+                e.properties.zeroyrattachedChg = calcPctChange(lastmonthdata[x].attachedAveragePrice,e.properties.zeroyrattachedAveragePrice)
+                e.properties.zeroyrcondotownhouseChg = calcPctChange(lastmonthdata[x].condotownhouseAveragePrice,e.properties.zeroyrcondotownhouseAveragePrice)
+                e.properties.zeroyrcondoapartmentChg = calcPctChange(lastmonthdata[x].condoapartmentAveragePrice,e.properties.zeroyrcondoapartmentAveragePrice)
+              }
+            }
+
+
+          })
+
+          jsonmapbuilder = thisjson;
+          console.log(jsonmapbuilder.features)
+
+        map.addSource("region-shapes", {
+            type: "geojson",
+            data: 'gta-regions.geojson',
+        });
+
+        map.addSource("TRREB-map-data", {
+            type: "geojson",
+            data: jsonmapbuilder,
+        });
+
+        var colourArray = ["step",["get",getThisProperty],'#111',1,colours[1],250000,colours[2],500000,colours[3],750000,colours[4],1000000,colours[5],1250000,colours[6],1500000,colours[7],1750000,colours[8],2000000,colours[9]]
+
+        // var colourArray = ["step",["get",getThisProperty],colours[0],0,colours[1],250000,colours[2],500000,colours[3],750000,colours[4],1000000,colours[5],1500000,colours[6],2000000,colours[6],2500000,colours[6],4000000,colours[9]]
+
+          map.addLayer({
+              id: 'TRREBareas',
+              type: 'fill',
+              source: 'TRREB-map-data',
+              // "source-layer": "trreb-all-zones-2-7x19lo",
+              layout: {
+                'visibility': 'visible'
+              },
+              paint: {
+                // "fill-color": "#c83933",
+                "fill-color": colourArray,
+                "fill-outline-color": "#F8F8F8",
+                // "fill-outline-color": ["case", ["boolean", ["feature-state", "hover"], false],
+                //     "#707070",
+                //     "white",
+                // ],
+                // "fill-opacity": ["case", ["boolean", ["feature-state", "click"], false],
+                //     1,
+                //     0.6
+                // ]
+                // "fill-opacity": 0.8,
+                'fill-opacity': [
+                'interpolate',
+                // Set the exponential rate of change to 0.5
+                ['exponential', 0.5],
+                ['zoom'],
+                // When zoom is 10, buildings will be 100% transparent.
+                8,
+                0.9,
+                // When zoom is 10, buildings will be 100% transparent.
+                10,
+                0.5,
+                // When zoom is 18 or higher, buildings will be 100% opaque.
+                12,
+                0.3
+                ]
+              }
+          }
+          ,
+        'waterway-label');
+
+          map.addLayer({
+              id: 'regionArealines',
+              type: 'line',
+              source: 'region-shapes',
+              // "source-layer": "trreb-all-zones-2-7x19lo",
+              layout: {
+                'visibility': 'visible'
+              },
+              paint: {
+                "line-color": "#707070",
+                "line-width": 2,
+                'line-opacity': [
+                'interpolate',
+                // Set the exponential rate of change to 0.5
+                ['exponential', 0.5],
+                ['zoom'],
+                // When zoom is 10, buildings will be 100% transparent.
+                5,
+                1,
+                // When zoom is 10, buildings will be 100% transparent.
+                10,
+                0.9,
+                // When zoom is 10, buildings will be 100% transparent.
+                15,
+                0.0
+                ]
+              }
+          }
+          ,
+        'waterway-label');
+
+          map.addLayer({
+              id: 'TRREBarealines',
+              type: 'line',
+              source: 'TRREB-map-data',
+              // "source-layer": "trreb-all-zones-2-7x19lo",
+              layout: {
+                'visibility': 'visible'
+              },
+              paint: {
+                // "fill-color": "#c83933",
+                "line-color": ["case", ["boolean", ["feature-state", "hover"], false],
+                    "#707070",
+                    "#F8F8F8"
+                ],
+                "line-width": ["case", ["boolean", ["feature-state", "hover"], false],
+                    2,
+                    0.0
+                ],
+              }
+          }
+          ,
+        'waterway-label');
+
+          map.addLayer({
+              id: 'TRREBarealines-forClick',
+              type: 'line',
+              source: 'TRREB-map-data',
+              // "source-layer": "trreb-all-zones-2-7x19lo",
+              layout: {
+                'visibility': 'visible'
+              },
+              paint: {
+                // "fill-color": "#c83933",
+                "line-color": ["case", ["boolean", ["feature-state", "click"], false],
+                    "#333",
+                    "#F8F8F8"
+                ],
+                "line-width": ["case", ["boolean", ["feature-state", "click"], false],
+                    3,
+                    0.0
+                ],
+              }
+          }
+          ,
+        'waterway-label');
+
+        // ------------------------------------------------------------------------------------------------------------ mapbox qery Starts
+
+
+        var x = d3.scaleTime()
+          .domain(d3.extent(data, function(d) { return d.date; }))
+          .range([ 0, width ]);
+
+        var y = d3.scaleLinear()
+          // .domain([0, d3.max(data, function(d) { return +d[getThisHomeType + "AveragePrice"]; })])
+          .domain([0, d3.max(data, function(d) { return +d["detached" + "AveragePrice"]; })])
+          .range([ height, 0 ]);
+
+        var allline = d3.line()
+            // .defined(function (d) { return d.allAveragePrice; })
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d[getThisHomeType + "AveragePrice"]); });
+
+        var detachedline = d3.line()
+            // .defined(function (d) { return d.allAveragePrice; })
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.detachedAveragePrice); });
+
+        var attachedline = d3.line()
+            // .defined(function (d) { return d.allAveragePrice; })
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.attachedAveragePrice); });
+
+        var condotownhouseline = d3.line()
+            // .defined(function (d) { return d.allAveragePrice; })
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.condotownhouseAveragePrice); });
+
+        var condoapartmentline = d3.line()
+            // .defined(function (d) { return d.allAveragePrice; })
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.condoapartmentAveragePrice); });
+
+
+        var buildChart = function(thisarea){
+              // var datamax1 = d3.max(data, function(d) { return d[getThisHomeType + "AveragePrice"]; });
+              var datamax1 = d3.max(data, function(d) { return d["detached" + "AveragePrice"]; });
+
+              // console.log(data.filter(function(d){return d.area == "Whitchurch-Stouffville" }))
+
+              // group the data: I want to draw one line per group
+              var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
+                .key(function(d) { return d.area;})
+                // .entries(data.filter(function(d){return isNaN(d.allAveragePrice) == false}));
+                .entries(data.filter(function(d){return isNaN(d[getThisHomeType + "AveragePrice"]) == false &&  d.area == thisarea }));
+
+              svg.append("g")
+                .attr("class", "axisX")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x).ticks(xTicks).tickSize(5).tickSizeOuter([0]));
+
+              // Add Y axis
+              svg.append("g")
+                .attr("class", "axisY")
+                .call(d3.axisLeft(y).ticks(4).tickSize(-width).tickSizeOuter([0]).tickFormat(d3.format("$.2s")));
+
+              // color palette
+              var res = sumstat.map(function(d){ return d.key }) // list of group names
+              var color = d3.scaleOrdinal()
+                .domain(res)
+                // .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
+                .range(['#c83933'])
+
+              // Draw the line
+              svg.selectAll(".line")
+                  .data(sumstat)
+                  .enter()
+                  .append("path")
+                    .attr("class", "AveragePriceLine")
+                    .attr("fill", "none")
+                    .attr("stroke", "#c83933")
+                    .attr("stroke-width", 3)
+                    .attr("stroke-linecap", "round")
+                    .attr("d", function(d) { return allline(d.values); })
+
+              // Draw the circle
+              svg.append("circle")
+                  .attr("class", "endcircle")
+                  .attr("fill", "#c83933")
+                  .attr("r", 4);
+
+                   
+
+            } //end of buildChart function TKTKTKTKT
+
+            buildChart(usethisArea_onChart)
+
+            var updateChart = function(thisarea){ 
+
+
+              var data_toUpdateChart = data.filter(function(d){return isNaN(d[getThisHomeType + "AveragePrice"]) == false &&  d.area == thisarea })
+
+              var datamax1 = d3.max(data_toUpdateChart, function(d) { return d[getThisHomeType + "AveragePrice"]; });
+
+              // console.log(data_toUpdateChart)
+              // console.log(datamax1)
+
+              // console.log(data.filter(function(d){return isNaN(d.allAveragePrice) == false }))
+              // console.log(data.filter(function(d){return isNaN(d.allAveragePrice) == false &&  d.area == thisarea }))
+
+              // group the data: I want to draw one line per group
+              sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
+                .key(function(d) { return d.area;})
+                .entries(data_toUpdateChart.filter(function(d){return d[getThisHomeType + "AveragePrice"] != 0 }));
+                // .entries(data_toUpdateChart.filter(function(d){return isNaN(d[getThisHomeType + "AveragePrice"]) == false &&  d.area == thisarea }));
+
+
+                if (sumstat.length == 0) {
+                  // console.log("nothing here")
+                  d3.select("#svgshader").classed("hidden",false)
+                  d3.select(".AveragePriceLine").classed("hidden",true)                  
+                } else {
+                  d3.select("#svgshader").classed("hidden",true)                  
+                  d3.select(".AveragePriceLine").classed("hidden",false)
+                }
+                // console.log(sumstat)
+
+              // color palette
+              var res = sumstat.map(function(d){ return d.key }) // list of group names
+              // console.log(svg.selectAll('.line'))
+              // Make the changes
+
+                
+
+
+               // x = d3.scaleTime()
+               //  .domain(d3.extent(data_toUpdateChart, function(d) { return d.date; }))
+               //  .range([ 0, width ]);
+
+              y = d3.scaleLinear()
+                // .domain([0, d3.max(data, function(d) { return +d[getThisHomeType + "AveragePrice"]; })])
+                .domain([0, d3.max(data_toUpdateChart, function(d) { return +d[getThisHomeType + "AveragePrice"]; })])
+                .range([ height, 0 ]);
+
+              allline = d3.line()
+                          // .defined(function (d) { return d.allAveragePrice; })
+                          .x(function(d) { return x(d.date); })
+                          .y(function(d) { return y(d[getThisHomeType + "AveragePrice"]); });
+
+              // svg.selectAll(".axisX")
+              //     .data(data_toUpdateChart)
+              //     .transition()
+              //   .attr("transform", "translate(0," + height + ")")
+              //   .call(d3.axisBottom(x).ticks(xTicks).tickSize(5).tickSizeOuter([0]));
+
+              // Add Y axis
+              svg.selectAll(".axisY")
+                  .data(data_toUpdateChart)
+                  .transition()
+                .call(d3.axisLeft(y).ticks(4).tickSize(-width).tickSizeOuter([0]).tickFormat(d3.format("$.2s")));
+
+              // Draw the line
+              svg.selectAll(".AveragePriceLine")
+                  .data(sumstat)
+                  // .data(sumstat.filter(function(d){return d.values > 0 }))
+                  .transition()
+                  .duration(300)
+                  .attr("d", function(d) { return allline(d.values); })
+
+              if (data_toUpdateChart[data_toUpdateChart.length - 1] != undefined) {
+              // Draw the cirlce
+                  svg.selectAll("circle.endcircle")
+                  // .data()
+                      .attr("transform",
+                        "translate(" + x(data_toUpdateChart[data_toUpdateChart.length - 1].date) + "," +
+                                       y(data_toUpdateChart[data_toUpdateChart.length - 1][getThisHomeType + "AveragePrice"]) + ")");
+              }
+
+            } // end of updateChart function
+
+            var focus = svg.append("g") 
+              .style("display", "none");
+
+            focus.append("line")
+                  .attr("class", "positionline")
+                  .style("stroke", "#707070")
+                  .style("stroke-dasharray", "3,5")
+                  .style("opacity", 0.5)
+                  .attr("y1", height);
+
+            focus.append("circle")
+                  .attr("class", "c")
+                  .attr("r", 6);
+
+            focus.append("circle")
+                  .attr("class", "cd")
+                  .attr("r", 6);
+
+            focus.append("rect")
+                  .attr("class", "backingbox");
+
+            // focus.append("text")
+            //       .attr("class", "y1");
+
+            focus.append("text")
+                  .attr("class", "y2");
+
+            focus.append("text")
+                  .attr("class", "y3");
+
+
+
+            svg.append("rect")
+                  .attr("id", "hoverbox")
+                  .style("fill", "none")
+                  .style("pointer-events", "all")
+                  .on("mouseover", function() { focus.style("display", null); })
+                  .on("mouseout", function() { focus.style("display", "none"); })
+                  .on("mousemove", mousemove);
+
+
+            svg.select('#hoverbox')
+                .attr("width", width)
+                .attr("height", height);
+
+            function mousemove() {
+              var usethisArea_onChart_data = data.filter(function(d){return isNaN(d[getThisHomeType + "AveragePrice"]) == false &&  d[getThisHomeType + "AveragePrice"] != 0 && d.area == usethisArea_onChart })
+
+              var x0 = x.invert(d3.mouse(this)[0]),
+                  i = bisectDate(usethisArea_onChart_data, x0, 1),
+                  d0 = usethisArea_onChart_data[i - 1],
+                  d1 = usethisArea_onChart_data[i],
+                  d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                  // console.log(getThisHomeType)
+                  // console.log(usethisArea_onChart)
+                  // console.log(usethisArea_onChart_data)
+
+
+              focus.select("text.y2")
+                  .attr("transform",
+                        "translate(" + x(d.date) + "," +
+                                       0 + ")")
+                  .text(function() { 
+                    return "" + formatTime(d.date) 
+                  })
+                  .style("text-anchor", function() {
+                    if (x(d.date) > width-150  ) {return "end"}
+                    else {return "start"};
+                });
+
+              focus.select("text.y3")
+                  .attr("transform",
+                        "translate(" + x(d.date) + "," +
+                                       15 + ")")
+                  .text(function() { 
+                    return "" + formatDollars(d[getThisHomeType + "AveragePrice"]) 
+                  })
+                  .style("text-anchor", function() {
+                    if (x(d.date) > width-150  ) {return "end"}
+                    else {return "start"};
+                });
+
+              focus.select("circle.c")
+                  .attr("transform",
+                        "translate(" + x(d.date) + "," +
+                                       y(d.date) + ")");
+
+              focus.select("circle.cd")
+                  .attr("transform",
+                        "translate(" + x(d.date) + "," +
+                                       y(d[getThisHomeType + "AveragePrice"]) + ")");
+
+              focus.select(".positionline")
+                  .attr("transform",
+                        "translate(" + x(d.date) + "," +
+                                       ((height * -1) - 5) + ")")
+                             .attr("y1", 150)
+                             .attr("y2", height + height);
+
+              focus.select(".backingbox")
+                   // .attr("transform",
+                        // "translate(" + (x(d.date)-5) + "," +
+                                       // -45 + ")")
+                   .attr("transform", function() {
+                    if (x(d.date) > width-150  ) {
+                      return "translate(" + (x(d.date)-100) + "," +
+                                       -45 + ")"
+                    }
+                    else {
+                      return "translate(" + (x(d.date)-5) + "," +
+                                       -45 + ")"
+                    };
+                   })
+                   .attr("width",100)
+                   .attr("height",60)
+                   .style("fill","#F8F8F8");
+            }    // end of focus function
+
+            // updateChart("Whitchurch-Stouffville")
+
+          var clickON = function(e){
+            // console.log(e.features[0].properties.name)
+
+
+            usethisArea_onChart = e.features[0].properties.name;
+            var usethisdataFiltered = data.filter(function(d){return d.area == usethisArea_onChart })
+            var lastUpdatemonth = usethisdataFiltered[usethisdataFiltered.length-1]
+
+            clickedStateId = e.features[0].id;
+
+            if (clickeddStateIdChecker != clickedStateId) {
+              map.setFeatureState({source: 'TRREB-map-data', id: clickeddStateIdChecker}, { click: false});
+            }
+
+          var pullTheNumber = function(d,e) {
+
+              if ( isNaN(d) || d == 0){
+                return "N/A"
+              } else {
+                if (e == '%') {
+                  return formatPercent(d) + '%'
+                } else {
+                  return formatDollars(d)
+                }
+              }
+              
+            }
+
+            $('#infoCard').removeClass('hidden')
+              map.setFeatureState({source: 'TRREB-map-data', id: clickedStateId}, { click: true});
+
+                // var username = $('#selUser option:selected').text();
+                // var userid = $('#selUser').val();
+                var usethisData = jsonmapbuilder.features.filter(function(d){return d.area == usethisArea_onChart})
+
+                      map.flyTo({
+                              center: [
+                                  Number(usethisData[0].properties.centroids.split(",")[0]) + desktopLonComp,
+                                  Number(usethisData[0].properties.centroids.split(",")[1]) + mobileLatComp
+                              ],
+                              zoom: zoomTo + mobilezoomComp + zoomtoOnLargeAreas(usethisData[0].properties.toronto_code),
+                              essential: true // this animation is considered essential with respect to prefers-reduced-motion
+                      });
+
+                      d3.select('#areaName').text(usethisData[0].properties.Full_name)
+                            if (usethisData[0].properties.toronto_code != '') {
+                              d3.select('#torontoID').text(" (" + usethisData[0].properties.toronto_code + ")")
+                            } else {
+                              d3.select('#torontoID').text("")
+                            }
+                      d3.select('#currentPriceHometype').text(getThisHomeType.replace('condo','condo '))
+                      d3.select('#currentPriceNumber').text(pullTheNumber(usethisData[0].properties["oneyr" + getThisHomeType + "AveragePrice"]),"$")
+
+                      d3.select('#oneyrCardNumber').text(pullTheNumber(usethisData[0].properties["oneyr" + getThisHomeType + "Chg"],"%"))
+                      d3.select('#zeroyrCardNumber').text(pullTheNumber(usethisData[0].properties["zeroyr" + getThisHomeType + "Chg"],"%"))
+                      d3.select('#tenyrCardNumber').text(pullTheNumber(usethisData[0].properties["tenyr" + getThisHomeType + "Chg"],"%"))
+
+
+                      $("#info").animate({
+                        opacity: 1,
+                        right: rightPush,
+                        // height: "toggle"
+                      }, 500, function() {
+                        // Animation complete.
+                      });
+
+              clickeddStateIdChecker = clickedStateId;
+          }
+
+          /*Query with Popup and tooltip example*/
+
+          var popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: true
+          });
+
+          
+          var hoverON = function(e){
+
+              var hoveredArea = e.features[0].properties.name;
+              var usethisdataFiltered = data.filter(function(d){return d.area == hoveredArea })
+              var lastUpdatemonth = usethisdataFiltered[usethisdataFiltered.length-1]
+
+              hoveredStateId = e.features[0].id;
+
+              if (hoveredStateIdChecker != hoveredStateId) {
+                map.setFeatureState({source: 'TRREB-map-data', id: hoveredStateIdChecker}, { hover: false});
+              }
+
+              map.setFeatureState({source: 'TRREB-map-data', id: hoveredStateId}, { hover: true});
+
+              // console.log(e.features[0].properties)
+              // console.log(e.features[0].properties.centroids.split(","))
+              // Change the cursor style as a UI indicator.
+              map.getCanvas().style.cursor = 'pointer';
+               
+              // Copy coordinates array.
+              // const coordinates = e.features[0].properties.centroids.split(",");
+              const coordinates = e.lngLat;
+              const description = e.features[0].properties.Full_name;
+               
+              // Ensure that if the map is zoomed out such that multiple
+              // copies of the feature are visible, the popup appears
+              // over the copy being pointed to.
+              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+              }
+               
+              // Populate the popup and set its coordinates
+              // based on the feature found.
+              popup.setLngLat(coordinates).setHTML(description).addTo(map);
+
+              hoveredStateIdChecker = hoveredStateId;
+          }
+
+
+          /*End popup and tooltip example*/
+
+          map.on('mousemove', 'TRREBareas', function(e) {
+            // identifyFeatures(e, 'TRREBareas', ["NAME", "POPULATION", "POP_SQMI"])
+            hoverON(e)
+          });
+
+          map.on('click', 'TRREBareas', function(e) {
+            updateChart(e.features[0].properties.name)
+            clickON(e)
+            // console.log(e.features[0].properties.name)
+            map.flyTo({
+                    center: [
+                        Number(e.features[0].properties.centroids.split(",")[0]) + desktopLonComp,
+                        Number(e.features[0].properties.centroids.split(",")[1]) + mobileLatComp
+                    ],
+                    zoom: zoomTo + mobilezoomComp + zoomtoOnLargeAreas(e.features[0].properties.toronto_code),
+                    essential: true // this animation is considered essential with respect to prefers-reduced-motion
+            });
+              $('#selUser').val(e.features[0].properties.name);
+            
+          });
+
+          ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          // FUNCTION to sart on an open area
+
+          if (areaID != '') {
+
+            usethisArea_onChart = areaID;
+            var usethisdataFiltered = data.filter(function(d){return d.area == usethisArea_onChart })
+            var lastUpdatemonth = usethisdataFiltered[usethisdataFiltered.length-1]
+
+            var usethisData = jsonmapbuilder.features.filter(function(d){return d.area == usethisArea_onChart})
+
+            var idfinder = usethisData[0].id
+
+            clickedStateId = idfinder;
+
+            if (clickeddStateIdChecker != clickedStateId) {
+              map.setFeatureState({source: 'TRREB-map-data', id: clickeddStateIdChecker}, { click: false});
+            }
+
+          var pullTheNumber = function(d,e) {
+
+              if ( isNaN(d) || d == 0){
+                return "N/A"
+              } else {
+                if (e == '%') {
+                  return formatPercent(d) + '%'
+                } else {
+                  return formatDollars(d)
+                }
+              }
+              
+            }
+
+            $('#infoCard').removeClass('hidden')
+              map.setFeatureState({source: 'TRREB-map-data', id: clickedStateId}, { click: true});
+
+                // var username = $('#selUser option:selected').text();
+                // var userid = $('#selUser').val();
+
+                      map.flyTo({
+                              center: [
+                                  Number(usethisData[0].properties.centroids.split(",")[0]) + desktopLonComp,
+                                  Number(usethisData[0].properties.centroids.split(",")[1]) + mobileLatComp
+                              ],
+                              zoom: zoomTo + mobilezoomComp + zoomtoOnLargeAreas(usethisData[0].properties.toronto_code),
+                              essential: true // this animation is considered essential with respect to prefers-reduced-motion
+                      });
+
+                      d3.select('#areaName').text(usethisData[0].properties.Full_name)
+                            if (usethisData[0].properties.toronto_code != '') {
+                              d3.select('#torontoID').text(" (" + usethisData[0].properties.toronto_code + ")")
+                            } else {
+                              d3.select('#torontoID').text("")
+                            }
+                      d3.select('#currentPriceHometype').text(getThisHomeType.replace('condo','condo '))
+                      d3.select('#currentPriceNumber').text(pullTheNumber(usethisData[0].properties["oneyr" + getThisHomeType + "AveragePrice"]),"$")
+
+                      d3.select('#oneyrCardNumber').text(pullTheNumber(usethisData[0].properties["oneyr" + getThisHomeType + "Chg"],"%"))
+                      d3.select('#zeroyrCardNumber').text(pullTheNumber(usethisData[0].properties["zeroyr" + getThisHomeType + "Chg"],"%"))
+                      d3.select('#tenyrCardNumber').text(pullTheNumber(usethisData[0].properties["tenyr" + getThisHomeType + "Chg"],"%"))
+
+
+                      $("#info").animate({
+                        opacity: 1,
+                        right: rightPush,
+                        // height: "toggle"
+                      }, 500, function() {
+                        // Animation complete.
+                      });
+
+              clickeddStateIdChecker = clickedStateId;
+
+            updateChart(usethisArea_onChart)
+
+
+                      $("#info").animate({
+                        opacity: 1,
+                        right: rightPush,
+                        // height: "toggle"
+                      }, 500, function() {
+                        // Animation complete.
+                      });
+
+              $('#selUser').val(areaID);
+
+          } 
+
+          ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+          // change choropleth according to button pressed
+
+          $(".button").on('click',function(){
+
+            var useThisId = $(this).attr("id")
+
+            if (d3.select(this).classed("timeSpanbutton") == true) {
+              
+              d3.selectAll("#button-group-wrapper1 button").classed("active", false)
+              $("#" + useThisId).addClass("active")
+              getThisTimeSpan = $(this).attr("data")
+              getThisMeassure = "Chg"
+              getThisProperty = getThisTimeSpan + getThisHomeType + getThisMeassure
+
+              if (d3.select("#button1").classed("active") == true) {
+                  d3.selectAll(".legendnumberstenYrchamge").classed("hidden",false)
+                  d3.selectAll(".legendnumberszeroYrchamge").classed("hidden",true)
+                  d3.selectAll(".legendnumbersoneYrchamge").classed("hidden",true)
+                  d3.selectAll(".legendcoloursAveragePrice").classed("hidden",true)
+                  d3.selectAll(".legendcolourschange").classed("hidden",false)
+                  colourArray = ["step",["get",getThisProperty],colours2[0],0,colours2[1],50,colours2[2],100,colours2[3],150,colours2[4],200,colours2[5],250,colours2[6],300,colours2[7],350,colours2[8],400,colours2[9]]
+              } else if (d3.select("#button2").classed("active") == true) {
+                  d3.selectAll(".legendnumberstenYrchamge").classed("hidden",true)
+                  d3.selectAll(".legendnumberszeroYrchamge").classed("hidden",false)
+                  d3.selectAll(".legendnumbersoneYrchamge").classed("hidden",true)
+                  d3.selectAll(".legendcoloursAveragePrice").classed("hidden",true)
+                  d3.selectAll(".legendcolourschange").classed("hidden",false)
+                  // colourArray = ["step",["get",getThisProperty],colours2[1],-15,colours2[2],-10,colours2[3],-5,colours2[4],0,colours2[5],5,colours2[6],10,colours2[7],15,colours2[8],20,colours2[9]]
+                  colourArray = ["step",["get",getThisProperty],colours2[1],-15,colours2[2],-10,colours2[3],-5,colours2[4],0,colours2[5],5,colours2[6],10,colours2[7],15,colours2[8],20,colours2[9]]
+              } else {
+                  d3.selectAll(".legendnumberstenYrchamge").classed("hidden",true)
+                  d3.selectAll(".legendnumberszeroYrchamge").classed("hidden",true)
+                  d3.selectAll(".legendnumbersoneYrchamge").classed("hidden",false)
+                  d3.selectAll(".legendcoloursAveragePrice").classed("hidden",true)
+                  d3.selectAll(".legendcolourschange").classed("hidden",false)
+                  colourArray = ["step",["get",getThisProperty],colours2[1],-15,colours2[2],-10,colours2[3],-5,colours2[4],0,colours2[5],5,colours2[6],10,colours2[7],15,colours2[8],20,colours2[9]]
+              }
+
+              d3.selectAll(".legendnumbersAveragePrice").classed("hidden",true)
+              d3.selectAll(".legendtitleAveragePrice").classed("hidden",true)
+              d3.selectAll(".legendtitlechange").classed("hidden",false)
+
+
+            } else if (d3.select(this).classed("houseTypebutton") == true) {
+              
+              d3.selectAll(".houseTypebutton").classed("active", false)
+              // $("#" + useThisId).addClass("active")
+              getThisHomeType = $(this).attr("data")
+              $("." + getThisHomeType).addClass("active")
+              getThisProperty = getThisTimeSpan + getThisHomeType + getThisMeassure
+
+              if (d3.select("#AveragePrice").classed("active") == true) {
+                colourArray = ["step",["get",getThisProperty],'#111',1,colours[1],250000,colours[2],500000,colours[3],750000,colours[4],1000000,colours[5],1250000,colours[6],1500000,colours[7],1750000,colours[8],2000000,colours[9]]
+              } else if (d3.select("#button1").classed("active") == true) {
+                colourArray = ["step",["get",getThisProperty],colours2[0],0,colours2[1],50,colours2[2],100,colours2[3],150,colours2[4],200,colours2[5],250,colours2[6],300,colours2[7],350,colours2[8],400,colours2[9]]
+              } else if (d3.select("#button2").classed("active") == true) {
+                colourArray = ["step",["get",getThisProperty],colours2[1],-15,colours2[2],-10,colours2[3],-5,colours2[4],0,colours2[5],5,colours2[6],10,colours2[7],15,colours2[8],20,colours2[9]]
+              } else {
+                colourArray = ["step",["get",getThisProperty],colours2[1],-15,colours2[2],-10,colours2[3],-5,colours2[4],0,colours2[5],5,colours2[6],10,colours2[7],15,colours2[8],20,colours2[9]]
+              }
+
+              d3.selectAll(".housetypeonLegend").text(getThisHomeType.replace('condo','condo '))
+              d3.select("#housetypeoncard").text(getThisHomeType.replace('condo','condo '))
+              
+              // update the line chart
+              updateChart(usethisArea_onChart)
+
+
+
+            } else {
+
+              d3.selectAll("#button-group-wrapper1 button").classed("active", false)
+              $("#" + useThisId).addClass("active")
+              getThisMeassure = "AveragePrice"
+              getThisTimeSpan = "oneyr"
+              getThisProperty = getThisTimeSpan + getThisHomeType + getThisMeassure
+              colourArray = ["step",["get",getThisProperty],'#111',1,colours[1],250000,colours[2],500000,colours[3],750000,colours[4],1000000,colours[5],1250000,colours[6],1500000,colours[7],1750000,colours[8],2000000,colours[9]]
+
+              d3.selectAll(".legendnumbersAveragePrice").classed("hidden",false)
+              d3.selectAll(".legendnumbersoneYrchamge").classed("hidden",true)
+              d3.selectAll(".legendtitleAveragePrice").classed("hidden",false)
+              d3.selectAll(".legendtitlechange").classed("hidden",true)
+
+              d3.selectAll(".legendnumberstenYrchamge").classed("hidden",true)
+              d3.selectAll(".legendnumberszeroYrchamge").classed("hidden",true)
+              
+              d3.selectAll(".legendcoloursAveragePrice").classed("hidden",false)
+              d3.selectAll(".legendcolourschange").classed("hidden",true)
+
+            }
+
+
+            map.removeLayer('TRREBareas');
+            map.removeLayer('regionArealines');
+            map.removeLayer('TRREBarealines');
+            map.removeLayer('TRREBarealines-forClick');
+
+          map.addLayer({
+              id: 'TRREBareas',
+              type: 'fill',
+              source: 'TRREB-map-data',
+              // "source-layer": "trreb-all-zones-2-7x19lo",
+              layout: {
+                'visibility': 'visible'
+              },
+              paint: {
+                // "fill-color": "#c83933",
+                "fill-color": colourArray,
+                "fill-outline-color": "#F8F8F8",
+                // "fill-outline-color": ["case", ["boolean", ["feature-state", "hover"], false],
+                //     "#707070",
+                //     "white",
+                // ],
+                // "fill-opacity": ["case", ["boolean", ["feature-state", "click"], false],
+                //     1,
+                //     0.6
+                // ]
+                // "fill-opacity": 0.8
+                'fill-opacity': [
+                'interpolate',
+                // Set the exponential rate of change to 0.5
+                ['exponential', 0.5],
+                ['zoom'],
+                // When zoom is 10, buildings will be 100% transparent.
+                8,
+                0.9,
+                // When zoom is 10, buildings will be 100% transparent.
+                10,
+                0.5,
+                // When zoom is 18 or higher, buildings will be 100% opaque.
+                12,
+                0.3
+                ]
+              }
+          }
+          ,
+        'waterway-label');
+
+          map.addLayer({
+              id: 'regionArealines',
+              type: 'line',
+              source: 'region-shapes',
+              // "source-layer": "trreb-all-zones-2-7x19lo",
+              layout: {
+                'visibility': 'visible'
+              },
+              paint: {
+                "line-color": "#707070",
+                "line-width": 2,
+                'line-opacity': [
+                'interpolate',
+                // Set the exponential rate of change to 0.5
+                ['exponential', 0.5],
+                ['zoom'],
+                // When zoom is 10, buildings will be 100% transparent.
+                5,
+                1,
+                // When zoom is 10, buildings will be 100% transparent.
+                10,
+                0.9,
+                // When zoom is 10, buildings will be 100% transparent.
+                15,
+                0.0
+                ]
+              }
+          }
+          ,
+        'waterway-label');
+
+          map.addLayer({
+              id: 'TRREBarealines',
+              type: 'line',
+              source: 'TRREB-map-data',
+              // "source-layer": "trreb-all-zones-2-7x19lo",
+              layout: {
+                'visibility': 'visible'
+              },
+              paint: {
+                // "fill-color": "#c83933",
+                "line-color": ["case", ["boolean", ["feature-state", "hover"], false],
+                    "#707070",
+                    "#F8F8F8"
+                ],
+                "line-width": ["case", ["boolean", ["feature-state", "hover"], false],
+                    2,
+                    0.0
+                ],
+              }
+          }
+          ,
+        'waterway-label');
+
+          map.addLayer({
+              id: 'TRREBarealines-forClick',
+              type: 'line',
+              source: 'TRREB-map-data',
+              // "source-layer": "trreb-all-zones-2-7x19lo",
+              layout: {
+                'visibility': 'visible'
+              },
+              paint: {
+                // "fill-color": "#c83933",
+                "line-color": ["case", ["boolean", ["feature-state", "click"], false],
+                    "#333",
+                    "#F8F8F8"
+                ],
+                "line-width": ["case", ["boolean", ["feature-state", "click"], false],
+                    3,
+                    0.0
+                ],
+              }
+          }
+          ,
+        'waterway-label');
+
+
+          var usethisArea_onCard_data = jsonmapbuilder.features.filter(function(d){return d.area == usethisArea_onChart })
+
+          var pullTheNumber = function(d,e) {
+
+              if ( isNaN(d) || d == 0){
+                return "N/A"
+              } else {
+                if (e == '%') {
+                  return formatPercent(d) + '%'
+                } else {
+                  return formatDollars(d)
+                }
+              }
+              
+            }
+
+          // console.log(usethisArea_onCard_data)
+
+          // d3.select('#areaName').text(usethisData[0].properties.name)
+                      d3.select('#currentPriceHometype').text(getThisHomeType.replace('condo','condo '))
+                      d3.select('#currentPriceNumber').text(pullTheNumber(usethisArea_onCard_data[0].properties["oneyr" + getThisHomeType + "AveragePrice"]),"$")
+
+                      d3.select('#oneyrCardNumber').text(pullTheNumber(usethisArea_onCard_data[0].properties["oneyr" + getThisHomeType + "Chg"],"%"))
+                      d3.select('#zeroyrCardNumber').text(pullTheNumber(usethisArea_onCard_data[0].properties["zeroyr" + getThisHomeType + "Chg"],"%"))
+                      d3.select('#tenyrCardNumber').text(pullTheNumber(usethisArea_onCard_data[0].properties["tenyr" + getThisHomeType + "Chg"],"%"))
+
+            // $('#burgerMenu').prop('checked',false);
+            //   if (window.innerWidth < 526) {
+            //       $("#filterMenu1").css("width", "135px")
+            //   } else {
+            //       $("#filterMenu1").css("width", "350px")
+            //   }
+
+          }) //end of button click
+
+
+
+    $("#closebutton").on("click",function(d){
+
+        // console.log(usethisArea_onCard_data)
+
+        $("#info").animate({
+          opacity: 0.25,
+          right: "-500px",
+        }, 500, function() {
+          // Animation complete.
+        });
+
+        // clickedStateId = usethisData[0].id;
+
+        $("#infoCard").addClass("hidden");
+            if (clickedStateId) {
+                map.setFeatureState({source: 'TRREB-map-data', id: clickeddStateIdChecker}, { click: false});
+            }
+            map.flyTo({
+                    center: center,
+                    zoom: zoom + mobilezoomComp,
+                    essential: true // this animation is considered essential with respect to prefers-reduced-motion
+            });
+
+              hoveredStateId =  null;
+              clickedStateId =  null;
+      });
+
+
+        map.on("mouseleave", 'TRREBareas', function(e) {
+            map.setFeatureState({source: 'TRREB-map-data', id: hoveredStateId}, { hover: false});
+            hoveredStateId = null;
+            popup.remove();
+        });           
+
+
+
+
+            // Initialize select2
+            // $("#selUser").select2();
+
+            d3.select("#selUser").on("change",function(d){
+              var thisattr = d3.select(this).property("value");
+              // console.log(thisattr)
+            // })
+
+            // // Read selected option
+            // $('#but_read').click(function(){
+
+              // var username = $('#selUser option:selected').text();
+              var userid = $('#selUser').val();
+              var usethisData = jsonmapbuilder.features.filter(function(d){return d.area == thisattr})
+              // console.log(usethisData[0])
+
+                  clickedStateId = usethisData[0].id;
+
+                  if (clickeddStateIdChecker != clickedStateId) {
+                    map.setFeatureState({source: 'TRREB-map-data', id: clickeddStateIdChecker}, { click: false});
+                  }
+
+                var pullTheNumber = function(d,e) {
+
+                    if ( isNaN(d) || d == 0){
+                      return "N/A"
+                    } else {
+                      if (e == '%') {
+                        return formatPercent(d) + '%'
+                      } else {
+                        return formatDollars(d)
+                      }
+                    }
+                    
+                  }
+
+                  $('#infoCard').removeClass('hidden')
+                    map.setFeatureState({source: 'TRREB-map-data', id: clickedStateId}, { click: true});
+
+                      // console.log(usethisData[0])
+
+                      updateChart(usethisData[0].properties.name)
+
+                            map.flyTo({
+                                    center: [
+                                        Number(usethisData[0].properties.centroids.split(",")[0]) + desktopLonComp,
+                                        Number(usethisData[0].properties.centroids.split(",")[1]) + mobileLatComp
+                                    ],
+                                    zoom: zoomTo + mobilezoomComp + zoomtoOnLargeAreas(usethisData[0].properties.toronto_code),
+                                    essential: true // this animation is considered essential with respect to prefers-reduced-motion
+                            });
+
+                            d3.select('#areaName').text(usethisData[0].properties.Full_name)
+                            if (usethisData[0].properties.toronto_code != '') {
+                              d3.select('#torontoID').text(" (" + usethisData[0].properties.toronto_code + ")")
+                            } else {
+                              d3.select('#torontoID').text("")
+                            }
+                            d3.select('#currentPriceHometype').text(getThisHomeType.replace('condo','condo '))
+                            d3.select('#currentPriceNumber').text(pullTheNumber(usethisData[0].properties["oneyr" + getThisHomeType + "AveragePrice"]),"$")
+
+                            d3.select('#oneyrCardNumber').text(pullTheNumber(usethisData[0].properties["oneyr" + getThisHomeType + "Chg"],"%"))
+                            d3.select('#zeroyrCardNumber').text(pullTheNumber(usethisData[0].properties["zeroyr" + getThisHomeType + "Chg"],"%"))
+                            d3.select('#tenyrCardNumber').text(pullTheNumber(usethisData[0].properties["tenyr" + getThisHomeType + "Chg"],"%"))
+
+                      $('#burgerMenu').prop('checked',false);
+
+                      $("#info").animate({
+                        opacity: 1,
+                        right: rightPush,
+                        // height: "toggle"
+                      }, 500, function() {
+                        // Animation complete.
+                      });
+
+                    clickeddStateIdChecker = clickedStateId;
+
+            }); // end of searchbar button search
+
+        });
+            
+    });
+
+
+});
+
+
+    function resize(){
+        var message = {'resize': 
+                  {
+                    'iframe':'graphic-iframe-priced-out-map',
+                    'height': document.getElementsByClassName('priced-out-map-graphic')[0].offsetHeight + 20
+                  }
+                };
+       
+        parent.postMessage(message, "*");
+    };
+
+    window.addEventListener('load', function() {
+        resize();
+    });
+
+    window.addEventListener("resize", function(){
+        resize();
+    });
+
+    setTimeout(function() {
+                        resize();
+                    }, 800);
+
+  
+  document.addEventListener("touchstart", function(){}, true);
+
+</script>
+
+<!-- <style>#graphic-iframe-priced-out-map{padding:0;width:100%;border:0;overflow:hidden;}</style><iframe id="graphic-iframe-priced-out-map" src="https://misc.thestar.com/interactivegraphic/2022/04-april/00-priced-out-map/index.html" scrolling="no" height="1050" title="embedded content"></iframe> -->
+
+    <!-- <script src='js/select2.js' type='text/javascript'></script> -->
+</body>
+
+</html>
