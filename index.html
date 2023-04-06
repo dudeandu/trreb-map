@@ -1384,6 +1384,7 @@
                       <div id="pills-container" class="button-group">
                               <button id="button4" class="button pill houseTypebutton all active" data="all">All</button>
                               <button id="button5" class="button pill houseTypebutton detached" data="detached">Detached</button>
+                              <button id="button9" class="button pill houseTypebutton semidetached" data="semidetached">Semi-detached</button>
                               <button id="button6" class="button pill houseTypebutton attached" data="attached">Attached</button>
                               <button id="button7" class="button pill houseTypebutton condotownhouse" data="condotownhouse">Condo townhouse</button>
                               <button id="button8" class="button pill houseTypebutton condoapartment" data="condoapartment">Condo apartment</button>
@@ -1545,6 +1546,7 @@
                 <div id="pills-container" class="button-group">
                         <button id="button4" class="button pill houseTypebutton all active" data="all">All</button>
                         <button id="button5" class="button pill houseTypebutton detached" data="detached">Detached</button>
+                        <button id="button9" class="button pill houseTypebutton semidetached" data="semidetached">Semi-detached</button>
                         <button id="button6" class="button pill houseTypebutton attached" data="attached">Attached</button>
                         <button id="button7" class="button pill houseTypebutton condotownhouse" data="condotownhouse">Condo townhouse</button>
                         <button id="button8" class="button pill houseTypebutton condoapartment" data="condoapartment">Condo apartment</button>
@@ -1794,6 +1796,8 @@ d3.csv("data/merged_TRREB_data.csv",function(data){
           // d.allChg = +d.allChg
           d.detachedAveragePrice = +d.detachedAveragePrice
           // d.detachedChg = +d.detachedChg
+          d.semidetachedAveragePrice = +d.semidetachedAveragePrice
+          // d.semidetachedChg = +d.semidetachedChg
           d.attachedAveragePrice = +d.attachedAveragePrice
           // d.attachedChg = +d.attachedChg
           d.condotownhouseAveragePrice = +d.condotownhouseAveragePrice
@@ -1916,6 +1920,7 @@ d3.csv("data/merged_TRREB_data.csv",function(data){
               if (e.area == firstyrthdata[x].area) {
                 e.properties.tenyrallAveragePrice = testNaN(firstyrthdata[x].allAveragePrice)
                 e.properties.tenyrdetachedAveragePrice = testNaN(firstyrthdata[x].detachedAveragePrice)
+                e.properties.tenyrsemidetachedAveragePrice = testNaN(firstyrthdata[x].semidetachedAveragePrice)
                 e.properties.tenyrattachedAveragePrice = testNaN(firstyrthdata[x].attachedAveragePrice)
                 e.properties.tenyrcondotownhouseAveragePrice = testNaN(firstyrthdata[x].condotownhouseAveragePrice)
                 e.properties.tenyrcondoapartmentAveragePrice = testNaN(firstyrthdata[x].condoapartmentAveragePrice)
@@ -1927,6 +1932,7 @@ d3.csv("data/merged_TRREB_data.csv",function(data){
               if (e.area == fifthyrthdata[x].area) {
                 e.properties.fiveyrallAveragePrice = testNaN(fifthyrthdata[x].allAveragePrice)
                 e.properties.fiveyrdetachedAveragePrice = testNaN(fifthyrthdata[x].detachedAveragePrice)
+                e.properties.fiveyrsemidetachedAveragePrice = testNaN(fifthyrthdata[x].semidetachedAveragePrice)
                 e.properties.fiveyrattachedAveragePrice = testNaN(fifthyrthdata[x].attachedAveragePrice)
                 e.properties.fiveyrcondotownhouseAveragePrice = testNaN(fifthyrthdata[x].condotownhouseAveragePrice)
                 e.properties.fiveyrcondoapartmentAveragePrice = testNaN(fifthyrthdata[x].condoapartmentAveragePrice)
@@ -1938,6 +1944,7 @@ d3.csv("data/merged_TRREB_data.csv",function(data){
               if (e.area == lastyrthdata[x].area) {
                 e.properties.lastyrallAveragePrice = testNaN(lastyrthdata[x].allAveragePrice)
                 e.properties.lastyrdetachedAveragePrice = testNaN(lastyrthdata[x].detachedAveragePrice)
+                e.properties.lastyrsemidetachedAveragePrice = testNaN(lastyrthdata[x].semidetachedAveragePrice)
                 e.properties.lastyrattachedAveragePrice = testNaN(lastyrthdata[x].attachedAveragePrice)
                 e.properties.lastyrcondotownhouseAveragePrice = testNaN(lastyrthdata[x].condotownhouseAveragePrice)
                 e.properties.lastyrcondoapartmentAveragePrice = testNaN(lastyrthdata[x].condoapartmentAveragePrice)
@@ -1949,6 +1956,7 @@ d3.csv("data/merged_TRREB_data.csv",function(data){
               if (e.area == secondlastmonthdata[x].area) {
                 e.properties.zeroyrallAveragePrice = testNaN(secondlastmonthdata[x].allAveragePrice)
                 e.properties.zeroyrdetachedAveragePrice = testNaN(secondlastmonthdata[x].detachedAveragePrice)
+                e.properties.zeroyrsemidetachedAveragePrice = testNaN(secondlastmonthdata[x].semidetachedAveragePrice)
                 e.properties.zeroyrattachedAveragePrice = testNaN(secondlastmonthdata[x].attachedAveragePrice)
                 e.properties.zeroyrcondotownhouseAveragePrice = testNaN(secondlastmonthdata[x].condotownhouseAveragePrice)
                 e.properties.zeroyrcondoapartmentAveragePrice = testNaN(secondlastmonthdata[x].condoapartmentAveragePrice)
@@ -1961,6 +1969,7 @@ d3.csv("data/merged_TRREB_data.csv",function(data){
               if (e.area == lastmonthdata[x].area) {
                 e.properties.oneyrallAveragePrice = testNaN(lastmonthdata[x].allAveragePrice)
                 e.properties.oneyrdetachedAveragePrice = testNaN(lastmonthdata[x].detachedAveragePrice)
+                e.properties.oneyrsemidetachedAveragePrice = testNaN(lastmonthdata[x].semidetachedAveragePrice)
                 e.properties.oneyrattachedAveragePrice = testNaN(lastmonthdata[x].attachedAveragePrice)
                 e.properties.oneyrcondotownhouseAveragePrice = testNaN(lastmonthdata[x].condotownhouseAveragePrice)
                 e.properties.oneyrcondoapartmentAveragePrice = testNaN(lastmonthdata[x].condoapartmentAveragePrice)
@@ -1973,24 +1982,28 @@ d3.csv("data/merged_TRREB_data.csv",function(data){
 
                 e.properties.tenyrallChg = calcPctChange(lastmonthdata[x].allAveragePrice,e.properties.tenyrallAveragePrice)
                 e.properties.tenyrdetachedChg = calcPctChange(lastmonthdata[x].detachedAveragePrice,e.properties.tenyrdetachedAveragePrice)
+                e.properties.tenyrsemidetachedChg = calcPctChange(lastmonthdata[x].semidetachedAveragePrice,e.properties.tenyrsemidetachedAveragePrice)
                 e.properties.tenyrattachedChg = calcPctChange(lastmonthdata[x].attachedAveragePrice,e.properties.tenyrattachedAveragePrice)
                 e.properties.tenyrcondotownhouseChg = calcPctChange(lastmonthdata[x].condotownhouseAveragePrice,e.properties.tenyrcondotownhouseAveragePrice)
                 e.properties.tenyrcondoapartmentChg = calcPctChange(lastmonthdata[x].condoapartmentAveragePrice,e.properties.tenyrcondoapartmentAveragePrice)
 
                 e.properties.fiveyrallChg = calcPctChange(lastmonthdata[x].allAveragePrice,e.properties.fiveyrallAveragePrice)
                 e.properties.fiveyrdetachedChg = calcPctChange(lastmonthdata[x].detachedAveragePrice,e.properties.fiveyrdetachedAveragePrice)
+                e.properties.fiveyrsemidetachedChg = calcPctChange(lastmonthdata[x].semidetachedAveragePrice,e.properties.fiveyrsemidetachedAveragePrice)
                 e.properties.fiveyrattachedChg = calcPctChange(lastmonthdata[x].attachedAveragePrice,e.properties.fiveyrattachedAveragePrice)
                 e.properties.fiveyrcondotownhouseChg = calcPctChange(lastmonthdata[x].condotownhouseAveragePrice,e.properties.fiveyrcondotownhouseAveragePrice)
                 e.properties.fiveyrcondoapartmentChg = calcPctChange(lastmonthdata[x].condoapartmentAveragePrice,e.properties.fiveyrcondoapartmentAveragePrice)
 
                 e.properties.oneyrallChg = calcPctChange(lastmonthdata[x].allAveragePrice,e.properties.lastyrallAveragePrice)
                 e.properties.oneyrdetachedChg = calcPctChange(lastmonthdata[x].detachedAveragePrice,e.properties.lastyrdetachedAveragePrice)
+                e.properties.oneyrsemidetachedChg = calcPctChange(lastmonthdata[x].semidetachedAveragePrice,e.properties.lastyrsemidetachedAveragePrice)
                 e.properties.oneyrattachedChg = calcPctChange(lastmonthdata[x].attachedAveragePrice,e.properties.lastyrattachedAveragePrice)
                 e.properties.oneyrcondotownhouseChg = calcPctChange(lastmonthdata[x].condotownhouseAveragePrice,e.properties.lastyrcondotownhouseAveragePrice)
                 e.properties.oneyrcondoapartmentChg = calcPctChange(lastmonthdata[x].condoapartmentAveragePrice,e.properties.lastyrcondoapartmentAveragePrice)
 
                 e.properties.zeroyrallChg = calcPctChange(lastmonthdata[x].allAveragePrice,e.properties.zeroyrallAveragePrice)
                 e.properties.zeroyrdetachedChg = calcPctChange(lastmonthdata[x].detachedAveragePrice,e.properties.zeroyrdetachedAveragePrice)
+                e.properties.zeroyrsemidetachedChg = calcPctChange(lastmonthdata[x].semidetachedAveragePrice,e.properties.zeroyrsemidetachedAveragePrice)
                 e.properties.zeroyrattachedChg = calcPctChange(lastmonthdata[x].attachedAveragePrice,e.properties.zeroyrattachedAveragePrice)
                 e.properties.zeroyrcondotownhouseChg = calcPctChange(lastmonthdata[x].condotownhouseAveragePrice,e.properties.zeroyrcondotownhouseAveragePrice)
                 e.properties.zeroyrcondoapartmentChg = calcPctChange(lastmonthdata[x].condoapartmentAveragePrice,e.properties.zeroyrcondoapartmentAveragePrice)
